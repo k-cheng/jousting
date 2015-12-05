@@ -2,20 +2,12 @@
   "name": "jousting",
   "version": "1.0.0",
   "description": "Compete with your friends, against your friends",
-<<<<<<< HEAD
-<<<<<<< HEAD
   "main": "app.js",
   "dependencies": {
     "express": "^4.13.3",
     "mongoose": "^4.2.9"
   },
   "devDependencies": {},
-=======
-  "main": "server/server.js",
->>>>>>> c0ed1cc8329cd43fa6f4534e897204ad67bb873c
-=======
-  "main": "server/server.js",
->>>>>>> c0ed1cc8329cd43fa6f4534e897204ad67bb873c
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -28,17 +20,5 @@
   "bugs": {
     "url": "https://github.com/RickyAndTheWalkers/jousting/issues"
   },
-<<<<<<< HEAD
-<<<<<<< HEAD
   "homepage": "https://github.com/RickyAndTheWalkers/jousting"
-=======
-  "homepage": "https://github.com/RickyAndTheWalkers/jousting",
-  "dependencies": {},
-  "devDependencies": {}
->>>>>>> c0ed1cc8329cd43fa6f4534e897204ad67bb873c
-=======
-  "homepage": "https://github.com/RickyAndTheWalkers/jousting",
-  "dependencies": {},
-  "devDependencies": {}
->>>>>>> c0ed1cc8329cd43fa6f4534e897204ad67bb873c
 }
