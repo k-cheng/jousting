@@ -1,0 +1,24 @@
+{
+  "name": "jousting.io",
+  "version": "1.0.0",
+  "description": "challenge anyone, anytime, anywhere, to anything.",
+  "main": "app.js",
+  "dependencies": {
+    "express": "^4.13.3",
+    "mongoose": "^4.2.9"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RickyAndTheWalkers/jousting.io.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RickyAndTheWalkers/jousting.io/issues"
+  },
+  "homepage": "https://github.com/RickyAndTheWalkers/jousting.io#readme"
+}
