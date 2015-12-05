@@ -1,7 +1,7 @@
 {
-  "name": "jousting.io",
+  "name": "jousting",
   "version": "1.0.0",
-  "description": "challenge anyone, anytime, anywhere, to anything.",
+  "description": "Compete with your friends, against your friends",
   "main": "app.js",
   "dependencies": {
     "express": "^4.13.3",
@@ -13,12 +13,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/RickyAndTheWalkers/jousting.io.git"
+    "url": "git+https://github.com/RickyAndTheWalkers/jousting.git"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Jonathan Kvicky, Avi Samloff, Kevin Cheng, Cory Dang, Jeffery Yang",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/RickyAndTheWalkers/jousting.io/issues"
+    "url": "https://github.com/RickyAndTheWalkers/jousting/issues"
   },
-  "homepage": "https://github.com/RickyAndTheWalkers/jousting.io#readme"
+  "homepage": "https://github.com/RickyAndTheWalkers/jousting"
 }
