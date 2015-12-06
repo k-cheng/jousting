@@ -1,0 +1,24 @@
+{
+  "name": "jousting",
+  "version": "1.0.0",
+  "description": "Compete with your friends, against your friends",
+  "main": "app.js",
+  "dependencies": {
+    "express": "^4.13.3",
+    "mongoose": "^4.2.9"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RickyAndTheWalkers/jousting.git"
+  },
+  "author": "Jonathan Kvicky, Avi Samloff, Kevin Cheng, Cory Dang, Jeffery Yang",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/RickyAndTheWalkers/jousting/issues"
+  },
+  "homepage": "https://github.com/RickyAndTheWalkers/jousting"
+}
