@@ -1,2 +1,2 @@
-# jousting.io
-challenge anyone, anytime, anywhere, to anything.
+# jousting
+Compete with your friends, against your friends
