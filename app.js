@@ -18,7 +18,9 @@ app.use(express.static(__dirname + '/public/mobile/www'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 app.use(cookieParser());
-app.use(session({secret: 'devHouse'}));
+app.use(session({
+  secret: 'devHouse'
+}));
 
 // Run Passport
 require('./server/config/passport')(app);
