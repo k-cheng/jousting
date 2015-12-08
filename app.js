@@ -1,20 +1,30 @@
-// packages
+// Packages
 var express = require('express');
-var mongoose = require('mongoose');
+var bodyParser = require('body-parser');
+var cookieParser = require('cookie-parser');
+var passport = require('passport');
+var session = require('express-session');
 
-// mongoose.connect();
-
+// Create Express instance
 var app = express();
 
 var port = 8000;
 
-// serve static files
-app.use(express.static('public'));
+// Routers
+var authRouter = require('./server/routes/authRoutes')();
 
-// route test 
-app.get('/', function(req, res) {
-  res.send('Hello World');
-});
+// Middlewares
+app.use(express.static(__dirname + '/public/mobile/www'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded());
+app.use(cookieParser());
+app.use(session({secret: 'devHouse'}));
+
+// Run Passport
+require('./server/config/passport')(app);
+
+// Routes
+app.use('/Auth', authRouter);
 
 app.listen(port, function(err) {
   console.log('running server on port over ' + port + "!!!!");
