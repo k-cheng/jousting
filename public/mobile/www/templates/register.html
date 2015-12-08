@@ -1,22 +1,24 @@
-<ion-view title="Register">
+<ion-view title="Register an account">
     <ion-content padding="'true'" scroll="false" class="has-header">
-        <form class="list" action="/auth/register" method="post">
+    <div ng-app='app'>
+        <form class="form-auth" ng-submit="register()" action="/auth/register" method="post">
             <ion-list>
                 <label class="item item-input">
-                    <input type="text" name="name" placeholder="Name">
+                    <input type="text" ng-model="user.name"name="name" placeholder="Name">
                 </label>
                 <label class="item item-input">
-                    <input name="userName" type="text" placeholder="Username">
+                    <input name="userName" ng-model="user.username" type="text" placeholder="Username">
                 </label>
                 <label class="item item-input">
-                    <input name="email" type="email" placeholder="Email">
+                    <input name="email" ng-model="user.email" type="email" placeholder="Email">
                 </label>
                 <label class="item item-input">
-                    <input name="password" type="password" placeholder="Password">
+                    <input name="password" ng-model="user.password" type="password" placeholder="Password">
                 </label>
             </ion-list>
-            <input type="submit" menu-close="" class="button button-stable button-block " value="Register" />
+            <input type="submit" menu-close="" class="button button-stable button-block " value="Submit Registration" />
         </form>
-        <a menu-close="" href="#/login" class="button button-stable button-block ">Log in</a>
+        <a menu-close="" href="#/login" class="button button-stable button-block ">Already have an account?</a>
+        </div>
     </ion-content>
 </ion-view>
