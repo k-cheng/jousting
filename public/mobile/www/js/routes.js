@@ -7,13 +7,13 @@ angular.module('app.routes', [])
   .state('register', {
     url: '/register',
     templateUrl: 'templates/register.html',
-    controller: 'registerCtrl'
+    controller: 'authCtrl'
   })
 
   .state('login', {
     url: '/login',
     templateUrl: 'templates/login.html',
-    controller: 'loginCtrl'
+    controller: 'authCtrl'
   })
 
   .state('createATeam', {

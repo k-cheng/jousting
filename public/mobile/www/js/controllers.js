@@ -1,12 +1,24 @@
 angular.module('app.controllers', [])
 
-.controller('registerCtrl', function($scope) {
+.controller('authCtrl', function($scope) {
+    $scope.user = {name: '', username: '', email: '', password: ''}
 
+    // placeholder until auth is implemented
+    $scope.login = function() {
+        $scope.error_message = 'login request for ' + $scope.user.username;
+        console.log('IN THE LOGIN function')
+    }
+
+    // placeholder until auth is implemented
+    $scope.register = function() {
+        $scope.error_message = 'REGISTER request for ' + $scope.user.username;
+        console.log('YOU IN THE REGISTER FUNCTION');
+    }
 })
 
-.controller('loginCtrl', function($scope) {
+// .controller('loginCtrl', function($scope) {
 
-})
+// })
 
 .controller('createATeamCtrl', function($scope) {
 
