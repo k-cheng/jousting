@@ -1,0 +1,18 @@
+img.user-image {
+  border-radius: 50%;
+}
+
+span.dev-name {
+  font-weight: bold;
+}
+
+span.soc-link {
+  font-size: 20px;
+  margin-top: 10px;
+}
+
+button.soc-button {
+  margin-top: 5px;
+  margin-left: 1px;
+  margin-right: 1px;
+}
