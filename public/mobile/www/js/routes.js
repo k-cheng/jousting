@@ -6,50 +6,82 @@ angular.module('app.routes', [])
 
   .state('register', {
     url: '/register',
-    templateUrl: 'templates/register.html',
-    controller: 'authCtrl'
+    views: {
+      'app-nav': {
+        templateUrl: 'templates/register.html',
+        controller: 'registerCtrl'
+      }
+    }
   })
 
   .state('login', {
     url: '/login',
-    templateUrl: 'templates/login.html',
-    controller: 'authCtrl'
+    views: {
+      'app-nav': {
+        templateUrl: 'templates/login.html',
+        controller: 'loginCtrl'
+      }
+    }
   })
 
   .state('createATeam', {
     url: '/create-a-team',
-    templateUrl: 'templates/createATeam.html',
-    controller: 'createATeamCtrl'
+    views: {
+      'app-nav': {
+        templateUrl: 'templates/createATeam.html',
+        controller: 'createATeamCtrl'
+      }
+    }
   })
 
   .state('joinATeam', {
     url: '/join-a-team',
-    templateUrl: 'templates/joinATeam.html',
-    controller: 'joinATeamCtrl'
+    views: {
+      'app-nav': {
+        templateUrl: 'templates/joinATeam.html',
+        controller: 'joinATeamCtrl'
+      }
+    }
   })
 
   .state('home', {
     url: '/home',
-    templateUrl: 'templates/home.html',
-    controller: 'homeCtrl'
+    views: {
+      'app-nav': {
+        templateUrl: 'templates/home.html',
+        controller: 'homeCtrl'
+      }
+    }
   })
 
   .state('roster', {
     url: '/roster',
-    templateUrl: 'templates/roster.html',
-    controller: 'rosterCtrl'
+    views: {
+      'app-nav': {
+        templateUrl: 'templates/roster.html',
+        controller: 'rosterCtrl'
+      }
+    }
   })
 
   .state('gauntlet', {
     url: '/gauntlet',
-    templateUrl: 'templates/gauntlet.html',
-    controller: 'gauntletCtrl'
+    views: {
+      'app-nav': {
+        templateUrl: 'templates/gauntlet.html',
+        controller: 'gauntletCtrl'
+      }
+    }
   })
 
   .state('theTeam', {
     url: '/the-team',
-    templateUrl: 'templates/theTeam.html',
-    controller: 'theTeamCtrl'
+    views: {
+      'app-nav': {
+        templateUrl: 'templates/theTeam.html',
+        controller: 'theTeamCtrl'
+      }
+    }
   })
 
   ;

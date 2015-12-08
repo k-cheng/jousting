@@ -31,14 +31,25 @@
     <script src="js/directives.js"></script>
 
   </head>
+
   <body ng-app="app" animation="slide-left-right-ios7">
-  <div>
-    <div>
-        <ion-nav-bar class="bar-stable">
-            <ion-nav-back-button class="button-icon icon ion-ios-arrow-back">Back</ion-nav-back-button>
-        </ion-nav-bar>
-        <ion-nav-view></ion-nav-view>
-    </div>
-</div>
+  <ion-nav-view>
+  <ion-side-menus>
+  <ion-side-menu side="left">
+
+</ion-side-menu>
+        <ion-side-menu-content class="sideNav" drag-content="false">
+          <ion-nav-bar class="nav-title-slide-ios7 bar-custom">
+            <ion-nav-buttons side="left">
+              <button class="button button-icon ion-navicon-round" menu-toggle="left"></button>
+            </ion-nav-buttons>
+            <ion-nav-back-button>
+            </ion-nav-back-button>
+          </ion-nav-bar>
+          <!-- main view controller -->
+          <ion-nav-view name="app-nav"></ion-nav-view>
+        </ion-side-menu-content>
+</ion-side-menus>
+</ion-nav-view>
   </body>
 </html>
