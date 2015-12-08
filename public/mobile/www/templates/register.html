@@ -1,21 +1,21 @@
 <ion-view title="Register">
     <ion-content padding="'true'" scroll="false" class="has-header">
-        <form class="list">
+        <form class="list" action="/auth/register" method="post">
             <ion-list>
-                <label class="item item-input" name="Name">
-                    <input type="text" placeholder="Name">
+                <label class="item item-input">
+                    <input type="text" name="name" placeholder="Name">
                 </label>
-                <label class="item item-input" name="Username">
-                    <input type="text" placeholder="Username">
+                <label class="item item-input">
+                    <input name="userName" type="text" placeholder="Username">
                 </label>
-                <label class="item item-input" name="Email">
-                    <input type="email" placeholder="Email">
+                <label class="item item-input">
+                    <input name="email" type="email" placeholder="Email">
                 </label>
-                <label class="item item-input" name="Password">
-                    <input type="password" placeholder="Password">
+                <label class="item item-input">
+                    <input name="password" type="password" placeholder="Password">
                 </label>
             </ion-list>
-            <a menu-close="" href="#/home" class="button button-stable button-block ">Register</a>
+            <input type="submit" menu-close="" class="button button-stable button-block " value="Register" />
         </form>
         <a menu-close="" href="#/login" class="button button-stable button-block ">Log in</a>
     </ion-content>
