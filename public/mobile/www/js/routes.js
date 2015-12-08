@@ -9,7 +9,7 @@ angular.module('app.routes', [])
     views: {
       'app-nav': {
         templateUrl: 'templates/register.html',
-        controller: 'registerCtrl'
+        controller: 'authCtrl'
       }
     }
   })
@@ -19,7 +19,7 @@ angular.module('app.routes', [])
     views: {
       'app-nav': {
         templateUrl: 'templates/login.html',
-        controller: 'loginCtrl'
+        controller: 'authCtrl'
       }
     }
   })
