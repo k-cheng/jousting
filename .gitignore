@@ -26,7 +26,8 @@ build/Release
 # https://www.npmjs.org/doc/misc/npm-faq.html#should-i-check-my-node_modules-folder-into-git
 node_modules
 bower_components
+platforms
+plugins
 
 # Compiled css
-public/mobile/css
-css
+public/mobile/www/css
