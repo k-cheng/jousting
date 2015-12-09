@@ -1,11 +1,13 @@
 <ion-view title="Create A Team">
     <ion-content padding="'true'" class="has-header">
-        <form class="list">
+    <div ng-app="app">
+        <form class="list" ng-submit="createTeam()">
             <label class="item item-input" name="teamname">
-                <input type="text" placeholder="Team Name">
+                <input type="text" placeholder="Team Name" ng-model="team.teamName"> {{ team.teamName }}
             </label>
             <div class="spacer" style="height: 100px;"></div>
-            <a menu-close="" href="#/roster" class="button button-stable button-block ">Done</a>
+            <button menu-close="" href="#/roster" type="submit" class="button button-stable button-block ">Done</button>
         </form>
+    </div>
     </ion-content>
 </ion-view>
