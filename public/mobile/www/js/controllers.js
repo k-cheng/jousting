@@ -1,7 +1,7 @@
 angular.module('app.controllers', [])
 
 .controller('authCtrl', function($scope) {
-    $scope.user = {name: '', username: '', email: '', password: ''}
+    $scope.user = {fullName: '', userName: '', email: '', password: ''}
 
     // placeholder until auth is implemented
     $scope.login = function() {
@@ -21,7 +21,12 @@ angular.module('app.controllers', [])
 // })
 
 .controller('createATeamCtrl', function($scope) {
+    $scope.team = {teamName: '', createdBy: ''}
 
+    $scope.createTeam = function() {
+        // get team name
+        console.log($scope.team.teamName + ' has entered the gauntlet!');
+    }
 })
 
 .controller('joinATeamCtrl', function($scope) {
