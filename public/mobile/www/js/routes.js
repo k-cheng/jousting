@@ -92,9 +92,6 @@ angular.module('app.routes', [])
 
   .state('home', {
     url: '/home',
-    resolve: {
-      loggedin: checkLoggedin
-    },
     views: {
       'app-nav': {
         templateUrl: 'templates/home.html',
@@ -118,6 +115,9 @@ angular.module('app.routes', [])
 
   .state('gauntlet', {
     url: '/gauntlet',
+    resolve: {
+      loggedin: checkLoggedin
+    },
     views: {
       'app-nav': {
         templateUrl: 'templates/gauntlet.html',
