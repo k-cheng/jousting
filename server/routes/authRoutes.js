@@ -1,33 +1,18 @@
 // Packages
 var express = require('express');
 var authRouter = express.Router();
-var mongoose = require('mongoose');
 var passport = require('passport');
+
+// Controllers
+var userCtrl = require('../controllers/user.server.controller');
+var teamCtrl = require('../controllers/team.server.controller');
 
 var router = function() {
 
   authRouter.route('/register')
   .post(function (req, res) {
     console.log(req.body);
-    // To Jeffy: Implement Moongose Below:
-    //=================================================
-    var url = 'mongodb://localhost:27017/joustingApp'; 
-    mongodb.connect(url, function (err, db) {
-      var collection = db.collection('users');
-      var user = {
-        name: req.body.name,
-        username: req.body.username,
-        password: req.body.password,
-        email: req.body.email
-      };
-
-      collection.insert(user, function(err, results) {
-        req.login(results.ops[0], function() {
-    //=================================================
-          res.redirect('/gauntlet');
-        });
-      });
-    });
+    return userCtrl.createUser(req, res);
   });
 
   authRouter.route('/login')
