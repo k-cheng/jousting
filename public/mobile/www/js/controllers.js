@@ -1,9 +1,8 @@
 angular.module('app.controllers', [])
 
 .controller('authCtrl', function($scope, $http, $location) {
-    $scope.user = {fullName: '', userName: '', email: '', password: ''}
+    $scope.user = {fullName: '', userName: '', email: '', password: ''};
 
-    // placeholder until auth is implemented
     $scope.login = function() { 
         $http.post('/login', {
             userName: $scope.user.userName,
@@ -16,11 +15,9 @@ angular.module('app.controllers', [])
         .error(function () {
             console.log('Received BAD response from server.');
             $location.url('/login');
-        // $scope.error_message = 'login request for ' + $scope.user.username;
         });
     };
 
-    // placeholder until auth is implemented
     $scope.register = function() {
         $http.post('/register', {
             fullName: $scope.user.fullName,
@@ -35,7 +32,6 @@ angular.module('app.controllers', [])
         .error(function() {
             console.log('Registration failed.');
             $location.url('/login');
-        // $scope.error_message = 'login request for ' + $scope.user.username;
         });
     };
 
@@ -56,12 +52,12 @@ angular.module('app.controllers', [])
 // })
 
 .controller('createATeamCtrl', function($scope) {
-    $scope.team = {teamName: '', createdBy: ''}
+    $scope.team = {teamName: '', createdBy: ''};
 
     $scope.createTeam = function() {
         // get team name
         console.log($scope.team.teamName + ' has entered the gauntlet!');
-    }
+    };
 })
 
 .controller('joinATeamCtrl', function($scope) {
