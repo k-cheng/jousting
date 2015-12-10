@@ -1,6 +1,46 @@
 angular.module('app.routes', [])
 
-.config(function($stateProvider, $urlRouterProvider) {
+.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
+
+  // Authentication: Will be Modularized Later
+  //=========================================================================
+  var checkLoggedin = function ($q, $timeout, $http, $location, $rootScope) {
+      // Initialize a new promise
+      var deferred = $q.defer();
+
+      // Make an AJAX call to check if the user is logged in
+      $http.get('/loggedin').success(function(user){
+        // Authenticated
+        if (user !== '0')
+          /*$timeout(deferred.resolve, 0);*/
+          deferred.resolve();
+
+        // Not Authenticated
+        else {
+          $rootScope.message = 'You need to log in.';
+          //$timeout(function(){deferred.reject();}, 0);
+          deferred.reject();
+          $location.url('/login');
+        }
+      });
+
+      return deferred.promise;
+    };
+
+  $httpProvider.interceptors.push(function($q, $location) {
+      return {
+        response: function(response) {
+          // do something on success
+          return response;
+        },
+        responseError: function(response) {
+          if (response.status === 401)
+            $location.url('/login');
+          return $q.reject(response);
+        }
+      };
+    });
+  //======================================================================
 
   $stateProvider
 
@@ -26,6 +66,9 @@ angular.module('app.routes', [])
 
   .state('createATeam', {
     url: '/create-a-team',
+    resolve: {
+      loggedin: checkLoggedin
+    },
     views: {
       'app-nav': {
         templateUrl: 'templates/createATeam.html',
@@ -36,6 +79,9 @@ angular.module('app.routes', [])
 
   .state('joinATeam', {
     url: '/join-a-team',
+    resolve: {
+      loggedin: checkLoggedin
+    },
     views: {
       'app-nav': {
         templateUrl: 'templates/joinATeam.html',
@@ -46,6 +92,9 @@ angular.module('app.routes', [])
 
   .state('home', {
     url: '/home',
+    resolve: {
+      loggedin: checkLoggedin
+    },
     views: {
       'app-nav': {
         templateUrl: 'templates/home.html',
@@ -56,6 +105,9 @@ angular.module('app.routes', [])
 
   .state('roster', {
     url: '/roster',
+    resolve: {
+      loggedin: checkLoggedin
+    },
     views: {
       'app-nav': {
         templateUrl: 'templates/roster.html',
@@ -76,15 +128,16 @@ angular.module('app.routes', [])
 
   .state('theTeam', {
     url: '/the-team',
+    resolve: {
+      loggedin: checkLoggedin
+    },
     views: {
       'app-nav': {
         templateUrl: 'templates/theTeam.html',
         controller: 'theTeamCtrl'
       }
     }
-  })
-
-  ;
+  });
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/home');

@@ -8,26 +8,27 @@ var session = require('express-session');
 // Create Express instance
 var app = express();
 
-var port = 8000;
-
-// Routers
-var authRouter = require('./server/routes/authRoutes')();
+var port = process.env.port || 8000;
 
 // Middlewares
 app.use(express.static(__dirname + '/public/mobile/www'));
+// app.use(express.static(__dirname + '/public/mobile/scss'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 app.use(cookieParser());
-app.use(session({
-  secret: 'devHouse'
-}));
+app.use(session({secret: 'devHouse'}));
+app.use(passport.initialize());
+app.use(passport.session());
 
 // Run Passport
 require('./server/config/passport')(app);
 
-// Routes
-app.use('/Auth', authRouter);
+// Routers
+var authRouter = require('./server/routes/authRoutes')();
 
-app.listen(port, function(err) {
+// Routes
+app.use('/', authRouter);
+
+app.listen(port, function (err) {
   console.log('running server on port over ' + port + "!!!!");
 });

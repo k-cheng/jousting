@@ -1,10 +1,11 @@
 var passport = require('passport');
 
-module.exports = function(app) {
+module.exports = function (app) {
   
   app.use(passport.initialize());
   app.use(passport.session());
 
+  // Serialized and deserialized methods when got from session
   passport.serializeUser(function (user, done) {
     done(null, user);
   });
@@ -12,6 +13,7 @@ module.exports = function(app) {
     done(null, user);
   });
 
+  // Strategies 
   require('./strategies/local.strategy')();
 
 };
