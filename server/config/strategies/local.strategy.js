@@ -1,27 +1,31 @@
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
-var mongoose = require('mongoose');
+
+// User Model
+var User = require('../../models/user.server.model.js');
+//possibly refactor to use userCtrl later - may need verifyUser method
+//var userCtrl = require('../../controllers/user.server.controller');
 
 module.exports = function () {
+
   passport.use(new LocalStrategy({
     usernameField: 'userName',
-    passwordField: 'password'
+    passwordField: 'password',
   },
-  function (username, password, done) {
-  // To Jeffy: Implement Moongose Below:
-  //======================================================================
-    // var url;
-    // mongoose.connect(url, function(err, db) {
-    //   var collection = db.collection('users');
-    //   collection.findOne({username: username}, function(err, results) {
-        if (username === "admin" && password === "admin") {
-          return done(null, {name: "admin"});
+  function(username, password, done) {
+    User.findOne({ userName: username })
+      .exec(function(err, user) {
+        if (user===null) {
+          console.log("User profile does not exist.");
+          return done(null, false, { message: 'Incorrect username.' });
+        } else if (err) {
+          var errMsg = 'Sorry, there was an error locating your user profile ' + err;
+              console.log(errMsg);
+        } else if (user.password === password) {
+          console.log("login success!");
+          return done(null, {name: user.userName});
         }
-
-        return done(null, false, { message: 'Incorrect username.' });
-      }));
-  //   });
-  // }));
-  //======================================================================
-
+      });
+    }
+  ));
 };
