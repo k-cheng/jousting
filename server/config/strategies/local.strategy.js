@@ -1,28 +1,25 @@
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
-var mongodb = require('mongodb');
+var mongoose = require('mongoose');
 
 module.exports = function () {
 
-  passport.use(new LocalStrategy({
-    nameField: 'name',
-    usernameField: 'userName',
-    passwordField: 'password',
-    emailField: 'email' 
-  },
-  function (name, username, password, email, done) {
-    var url = 'mongodb://localhost:27017/joustingApp'; 
-    mongodb.connect(url, function (err, db) {
-      var collection = db.collection('users');
-      collection.findOne({username: username}, function (err, results) {
-        if (results.password === password) {
-          var user = results;
-          done(null, user);
-        } else {
-          done(null, false, {message: 'Bad Password'});
+  passport.use(new LocalStrategy(
+  function(username, password, done) {
+  // To Jeffy: Implement Moongose Below:
+  //======================================================================
+    // var url;
+    // mongoose.connect(url, function(err, db) {
+    //   var collection = db.collection('users');
+    //   collection.findOne({username: username}, function(err, results) {
+        if (username === "admin" && password === "admin") {
+          return done(null, {name: "admin"});
         }
-      });
-    });
-  }));
+
+        return done(null, false, { message: 'Incorrect username.' });
+      }));
+  //   });
+  // }));
+  //======================================================================
 
 };

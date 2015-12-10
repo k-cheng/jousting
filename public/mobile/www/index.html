@@ -27,7 +27,7 @@
     <ion-side-menus>
     <ion-side-menu side="left">
 
-    <div class="list">
+    <div class="list" ng-controller="authCtrl">
 
       <a menu-close class="item item-icon-left" href="/#/gauntlet">
         <i class="icon ion-home"></i>
@@ -49,7 +49,7 @@
         Join A Team
       </a>
 
-      <a menu-close class="item item-icon-left" href="/#/home">
+      <a menu-close class="item item-icon-left" ng-click="logout()">
         <i class="icon ion-log-out"></i>
         Log Out
       </a>
