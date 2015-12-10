@@ -1,7 +1,7 @@
 // Packages
 var express = require('express');
 var authRouter = express.Router();
-var moogoose = require('mongoose');
+var mongoose = require('mongoose');
 var passport = require('passport');
 
 var router = function() {
@@ -24,7 +24,7 @@ var router = function() {
       collection.insert(user, function(err, results) {
         req.login(results.ops[0], function() {
     //=================================================
-          res.redirect('/home');
+          res.redirect('/gauntlet');
         });
       });
     });

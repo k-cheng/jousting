@@ -1,19 +1,54 @@
 angular.module('app.controllers', [])
 
-.controller('authCtrl', function($scope) {
+.controller('authCtrl', function($scope, $http, $location) {
     $scope.user = {fullName: '', userName: '', email: '', password: ''}
 
     // placeholder until auth is implemented
-    $scope.login = function() {
-        $scope.error_message = 'login request for ' + $scope.user.username;
-        console.log('IN THE LOGIN function')
-    }
+    $scope.login = function() { 
+        $http.post('/login', {
+            username: $scope.user.userName,
+            password: $scope.user.password,
+        })
+        .success(function (user) {
+            console.log('Received OK response from server.');
+            $location.url('/gauntlet');
+        })
+        .error(function () {
+            console.log('Received BAD response from server.');
+            $location.url('/login');
+        // $scope.error_message = 'login request for ' + $scope.user.username;
+        });
+    };
 
     // placeholder until auth is implemented
     $scope.register = function() {
-        $scope.error_message = 'REGISTER request for ' + $scope.user.username;
-        console.log('YOU IN THE REGISTER FUNCTION');
-    }
+        $http.post('/register', {
+            name: $scope.user.fullName,
+            username: $scope.user.userName,
+            password: $scope.user.password, 
+            email: $scope.user.email,
+        })
+        .success(function(user) {
+            console.log('Registration successful.');
+            $location.url('/gauntlet');
+        })
+        .error(function() {
+            console.log('Registration failed.');
+            $location.url('/login');
+        // $scope.error_message = 'login request for ' + $scope.user.username;
+        });
+    };
+
+    $scope.logout = function() {
+        $http.post('/logout')
+        .success(function() {
+            console.log('Logout successful.');
+            $location.url('/');
+        })
+        .error(function() {
+            console.log('Logout failed.');
+        });
+    };
 })
 
 // .controller('loginCtrl', function($scope) {

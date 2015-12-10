@@ -12,13 +12,10 @@ var port = process.env.port || 8000;
 
 // Middlewares
 app.use(express.static(__dirname + '/public/mobile/www'));
-// app.use(express.static(__dirname + '/public/mobile/scss'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 app.use(cookieParser());
 app.use(session({secret: 'devHouse'}));
-app.use(passport.initialize());
-app.use(passport.session());
 
 // Run Passport
 require('./server/config/passport')(app);
