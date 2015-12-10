@@ -6,7 +6,7 @@ angular.module('app.controllers', [])
     // placeholder until auth is implemented
     $scope.login = function() { 
         $http.post('/login', {
-            username: $scope.user.userName,
+            userName: $scope.user.userName,
             password: $scope.user.password,
         })
         .success(function (user) {
@@ -23,8 +23,8 @@ angular.module('app.controllers', [])
     // placeholder until auth is implemented
     $scope.register = function() {
         $http.post('/register', {
-            name: $scope.user.fullName,
-            username: $scope.user.userName,
+            fullName: $scope.user.fullName,
+            userName: $scope.user.userName,
             password: $scope.user.password, 
             email: $scope.user.email,
         })
