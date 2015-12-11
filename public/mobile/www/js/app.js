@@ -5,9 +5,12 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services', 'app.directives'])
+(function(angular) {
+  'use strict';
 
-.run(function($ionicPlatform) {
+var app = angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services', 'app.directives'])
+
+app.run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -20,3 +23,35 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services',
     }
   });
 })
+
+app.directive('username', function($q) {
+  return {
+    require: 'ngModel',
+    link: function(scope, elm, attrs, ctrl) {
+      var usernames = ['Avi', 'Jon', 'Kevin', 'Cory', 'Jeff'];
+
+      ctrl.$asyncValidators.username = function(modelValue, viewValue) {
+
+        if (ctrl.$isEmpty(modelValue)) {
+          // consider empty model valid
+          return $q.when();
+        }
+
+      var def = $q.defer();
+        if (usernames.indexOf(modelValue) === -1) {
+            // The username is available
+            //def.resolve();
+        } else {
+
+          def.reject();
+        }
+
+        return def.promise;
+      };
+    }
+  };
+});
+})(window.angular);
+
+
+
