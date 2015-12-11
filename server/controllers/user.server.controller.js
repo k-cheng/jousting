@@ -10,7 +10,7 @@ exports.createUser = function(req, res) {
         picture:    req.body.picture
     });
 
-    user.save(function(err) {
+    user.save(function(err, results) {
         if (err) {
             var errMsg = 'Sorry, there was an error creating your user profile ' + err;
             //needs to render the index with register view
@@ -18,9 +18,11 @@ exports.createUser = function(req, res) {
             console.log(errMsg);
             res.end();
         } else {
-            console.log('User created and saved!');
-            //needs to redirect to the home view
-            res.redirect(301, '/');
+            // needs to redirect to the home view
+            // res.redirect(301, '/');
+            req.login(results, function() {
+                res.send(req.user);
+            });
         }
     });
 };
