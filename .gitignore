@@ -31,3 +31,6 @@ plugins
 
 # Compiled css
 public/mobile/www/css
+
+#database
+db
