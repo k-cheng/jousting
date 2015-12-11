@@ -1,14 +1,26 @@
 <ion-view title="Register an account">
     <ion-content padding="'true'" scroll="false" class="has-header">
     <div ng-app='app'>
-        <form class="form-auth" ng-submit="register()">
+        <form class="form-auth" name="form" class="css-form" ng-submit="register()" novalidate>
             <ion-list>
                 <label class="item item-input">
                     <input type="text" ng-model="user.fullName" name="name" placeholder="Name"/>
                 </label>
-                <label class="item item-input">
+                <!--<label class="item item-input">
                     <input type="text" ng-model="user.userName" name="userName"  placeholder="Username"/>
+                </label>-->
+
+
+                <label class="item item-input">
+                    <div>
+                        <input type="text" ng-model="user.userName" placeholder="Choose Username" name="name" username />
+                    </div>
+                    <!--<span ng-show="form.name.$pending.username">Username available.</span>-->
                 </label>
+                <span ng-show="form.name.$error.username">Username taken!</span>
+
+
+
                 <label class="item item-input">
                     <input type="email" ng-model="user.email" name="email" placeholder="Email"/>
                 </label>
@@ -16,6 +28,7 @@
                     <input type="password" ng-model="user.password" name="password" placeholder="Password"/>
                 </label>
             </ion-list>
+            
             <input type="submit" menu-close="" class="button button-stable button-block " value="Submit Registration" />
         </form>
         <a menu-close="" href="#/login" class="button button-stable button-block ">Already have an account?</a>
