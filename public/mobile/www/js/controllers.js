@@ -51,12 +51,22 @@ angular.module('app.controllers', [])
 
 // })
 
-.controller('createATeamCtrl', function($scope) {
+.controller('createATeamCtrl', function($scope, $http) {
+    console.log('scope user is ', $scope.user);
     $scope.team = {teamName: '', createdBy: ''};
 
     $scope.createTeam = function() {
+        $http.post('/createTeam', {
+            teams: $scope.team.teamName
+        })
+        .success(function() {
+            console.log($scope.team.teamName + ' has entered the gauntlet!');
+            $location.url('/roster');
+        })
+        .error(function() {
+            console.log('Team was not created :(');
+        })
         // get team name
-        console.log($scope.team.teamName + ' has entered the gauntlet!');
     };
 })
 
