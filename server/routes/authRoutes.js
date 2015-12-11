@@ -12,7 +12,7 @@ var router = function() {
   authRouter.route('/register')
   .post(function (req, res) {
     console.log(req.body);
-    return userCtrl.createUser(req, res);
+    userCtrl.createUser(req, res);
   });
 
   authRouter.route('/login')

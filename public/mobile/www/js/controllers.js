@@ -9,11 +9,11 @@ angular.module('app.controllers', [])
             password: $scope.user.password,
         })
         .success(function (user) {
-            console.log('Received OK response from server.');
+            console.log('Login: Received OK response from server.');
             $location.url('/gauntlet');
         })
         .error(function () {
-            console.log('Received BAD response from server.');
+            console.log('Login: Received BAD response from server.');
             $location.url('/login');
         });
     };
@@ -26,11 +26,11 @@ angular.module('app.controllers', [])
             email: $scope.user.email,
         })
         .success(function(user) {
-            console.log('Registration successful.');
+            console.log('Registration: Received OK response from server.');
             $location.url('/gauntlet');
         })
         .error(function() {
-            console.log('Registration failed.');
+            console.log('Registration: Received BAD response from server.');
             $location.url('/login');
         });
     };
@@ -38,11 +38,11 @@ angular.module('app.controllers', [])
     $scope.logout = function() {
         $http.post('/logout')
         .success(function() {
-            console.log('Logout successful.');
+            console.log('Logout: Received OK response from server.');
             $location.url('/');
         })
         .error(function() {
-            console.log('Logout failed.');
+            console.log('Logout: Received BAD response from server.');
         });
     };
 })
