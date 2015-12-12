@@ -35,7 +35,7 @@ exports.createTeam = function(req, res) {
                         } else {
                             console.log('Team created!');
                             //needs to redirect to the home view
-                            res.redirect(301, '/');
+                            res.redirect(301, '/roster');
                         }
                     });
                 }
@@ -120,7 +120,7 @@ exports.listUsers = function(req, res) {
             //needs to render roster view
             // res.render('index', { users: team.users });
             console.log("team members "+JSON.stringify(team.users));
-            res.end();
+            res.send({ users: team.users });
         });
 };
 

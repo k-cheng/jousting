@@ -81,7 +81,7 @@ exports.joinTeam = function(req, res) {
                                 } else {
                                     console.log('Team joined!');
                                     //needs to redirect to the home view
-                                    res.redirect(301, '/');
+                                    res.redirect(301, '/roster');
                                 }
                             });
                         }
