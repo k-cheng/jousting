@@ -3,22 +3,21 @@ var express = require('express');
 var teamRouter = express.Router();
 
 // Controllers
+var userCtrl = require('../controllers/user.server.controller');
 var teamCtrl = require('../controllers/team.server.controller');
 
 var router = function() {
 
   teamRouter.route('/createTeam')
   .post(function (req, res) {
-
-    // To Jeff: implement query
-  
+  	console.log(req.body);
+  	teamCtrl.createTeam(req, res);
   });
 
   teamRouter.route('/joinTeam')
   .post(function (req, res) {
-
-    // To Jeff: implement query
-  
+  	console.log(req.body);
+  	userCtrl.joinTeam(req, res);
   });
 
   return teamRouter;
