@@ -52,12 +52,15 @@ angular.module('app.controllers', [])
 // })
 
 .controller('createATeamCtrl', function($scope, $http) {
-    console.log('scope user is ', $scope.user);
+    var userNode = JSON.parse(window.localStorage['user']);
+    console.log('userNode team is ', userNode.teams)
+    console.log('scope user is', userNode.userName);
     $scope.team = {teamName: '', createdBy: ''};
 
     $scope.createTeam = function() {
         $http.post('/createTeam', {
-            teams: $scope.team.teamName
+            userName: userNode.userName,
+            teamName: $scope.team.teamName
         })
         .success(function() {
             console.log($scope.team.teamName + ' has entered the gauntlet!');
