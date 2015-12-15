@@ -51,7 +51,7 @@ angular.module('app.controllers', [])
 
 // })
 
-.controller('createATeamCtrl', function($scope, $http) {
+.controller('createATeamCtrl', function($scope, $http, $location) {
     var userNode = JSON.parse(window.localStorage['user']);
     console.log('userNode team is ', userNode.teams)
     console.log('scope user is', userNode.userName);
@@ -66,8 +66,8 @@ angular.module('app.controllers', [])
             console.log($scope.team.teamName + ' has entered the gauntlet!');
             $location.url('/roster');
         })
-        .error(function() {
-            console.log('Team was not created :(');
+        .error(function(err) {
+            console.log('Team was not created :( '+err);
         })
         // get team name
     };

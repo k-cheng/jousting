@@ -35,7 +35,8 @@ exports.createTeam = function(req, res) {
                         } else {
                             console.log('Team created!');
                             //needs to redirect to the home view
-                            res.redirect(301, '/roster');
+                            // res.redirect(301, '/roster');
+                            res.sendStatus(200);
                         }
                     });
                 }
