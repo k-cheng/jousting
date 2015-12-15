@@ -86,10 +86,9 @@ angular.module('app.controllers', [])
     $http.get('/listAllTeams')
         .success(function(teams) {
             console.log("list of teams "+JSON.stringify(teams));
-            console.log('userNode teams ' + userNode.teams)
             //teams["teams"][i]["teamName"]
             for (var i = 0; i < teams['teams'].length; i++) {
-                console.log("teamname "+teams['teams'][i]['teamName'])
+                console.log("teamnames: "+teams['teams'][i]['teamName'])
                 listOfTeams.push(teams['teams'][i]['teamName']);
             }
         });
@@ -117,35 +116,44 @@ angular.module('app.controllers', [])
 .controller('rosterCtrl', function($scope, $http) {
     var userNode = JSON.parse(window.localStorage['user']);
     console.log("in roster control");
+    $scope.teamInfo = {users: [], teamName: ''}
     var teamUserIsIn;
     var usersInTeam;
-    $http.post('/getTeamName', {
-        userName: userNode["userName"]
-    })
-        .success(function(teams) {
-            // console.log(JSON.stringify(teams));
-            teamUserIsIn = teams["teams"];
-            console.log("teamarray "+JSON.stringify(teamUserIsIn));
-            // teamUserIsIn[index]["teamName"];
+    // $scope.getTeamName = function() {
+        $http.post('/getTeamName', {
+            userName: userNode["userName"]
+        })
+            .success(function(teams) {
+                // console.log(JSON.stringify(teams));
+                teamUserIsIn = teams["teams"];
+                console.log("teamarray "+JSON.stringify(teamUserIsIn[0]['teamName']));
+                // teamUserIsIn[index]["teamName"];
+                $scope.teamInfo.teamName = teamUserIsIn[0]['teamName'];
+                console.log('This is the scope.teamInfo.teamName: ' + $scope.teamInfo.teamName)
 
-            // NESTED HTTP POST REQUEST IS BAD PRACTICE! NEEDS REFACTORING!
-            $http.post('/roster', {
-                teamName: teamUserIsIn[0]["teamName"]
+                // NESTED HTTP POST REQUEST IS BAD PRACTICE! NEEDS REFACTORING!
+                $http.post('/roster', {
+                    teamName: teamUserIsIn[0]["teamName"]
+                })
+                    .success(function(users) {
+                        // console.log("userarray "+JSON.stringify(users));
+                        usersInTeam = users["users"];
+                        $scope.teamInfo.users = usersInTeam;
+                        // for (var i = 0; i < usersInTeam.length; i++) {
+                        //     $scope.teamInfo.users.push(JSON.stringify(usersInTeam[i]['userName']));
+                        //     console.log("userNameArray: "+$scope.teamInfo.users);
+                        //     // usersInTeam[index]["userName"];
+                        // }
+                    })
+                    .error(function(err) {
+                        console.log('Could not retrive roster list ' + err)
+                    })
+
             })
-                .success(function(users) {
-                    // console.log("userarray "+JSON.stringify(users));
-                    usersInTeam = users["users"];
-                    console.log("userarray "+JSON.stringify(usersInTeam));
-                    // usersInTeam[index]["userName"];
-                })
-                .error(function(err) {
-                    console.log('Could not retrive roster list ' + err)
-                })
-
-        })
-        .error(function(err) {
-            console.log('Could not retrive user info ' + err);
-        })
+            .error(function(err) {
+                console.log('Could not retrive user info ' + err);
+            })
+        // }
     //teamUserIsIn[index]["teamName"]
 
 })
