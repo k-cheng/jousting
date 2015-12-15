@@ -9,6 +9,7 @@ angular.module('app.controllers', [])
             password: $scope.user.password,
         })
         .success(function (user) {
+            window.localStorage.user = JSON.stringify($scope.user);
             console.log('Login: Received OK response from server.');
             $location.url('/gauntlet');
         })
@@ -26,6 +27,7 @@ angular.module('app.controllers', [])
             email: $scope.user.email,
         })
         .success(function(user) {
+            window.localStorage.user = JSON.stringify($scope.user);
             console.log('Registration: Received OK response from server.');
             $location.url('/gauntlet');
         })
@@ -38,6 +40,7 @@ angular.module('app.controllers', [])
     $scope.logout = function() {
         $http.post('/logout')
         .success(function() {
+            delete window.localStorage.user;
             console.log('Logout: Received OK response from server.');
             $location.url('/');
         })
