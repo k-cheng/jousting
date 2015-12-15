@@ -96,25 +96,57 @@ angular.module('app.controllers', [])
 
     $scope.joinTeam = function() {
         console.log('In the Join Team function ' + $scope.team.teamName);
-            $http.post('/joinTeam', {
-                userName: userNode["userName"],
-                teamName: $scope.team.teamName
-            })
-                .success(function() {
-                    $location.url('/roster')
-                    console.log('userName: ' + userNode["userName"] + ' teamName: ' + $scope.team.teamName)
-                })
-                .error(function(err) {
-                    console.log('NOT A REAL TEAM!' + err);
-                })
-            }
+        $http.post('/joinTeam', {
+            userName: userNode["userName"],
+            teamName: $scope.team.teamName
         })
+            .success(function() {
+                $location.url('/roster')
+                console.log('userName: ' + userNode["userName"] + ' teamName: ' + $scope.team.teamName)
+            })
+            .error(function(err) {
+                console.log('NOT A REAL TEAM!' + err);
+            })
+        }
+})
 
 .controller('homeCtrl', function($scope) {
 
 })
 
-.controller('rosterCtrl', function($scope) {
+.controller('rosterCtrl', function($scope, $http) {
+    var userNode = JSON.parse(window.localStorage['user']);
+    console.log("in roster control");
+    var teamUserIsIn;
+    var usersInTeam;
+    $http.post('/getTeamName', {
+        userName: userNode["userName"]
+    })
+        .success(function(teams) {
+            // console.log(JSON.stringify(teams));
+            teamUserIsIn = teams["teams"];
+            console.log("teamarray "+JSON.stringify(teamUserIsIn));
+            // teamUserIsIn[index]["teamName"];
+
+            // NESTED HTTP POST REQUEST IS BAD PRACTICE! NEEDS REFACTORING!
+            $http.post('/roster', {
+                teamName: teamUserIsIn[0]["teamName"]
+            })
+                .success(function(users) {
+                    // console.log("userarray "+JSON.stringify(users));
+                    usersInTeam = users["users"];
+                    console.log("userarray "+JSON.stringify(usersInTeam));
+                    // usersInTeam[index]["userName"];
+                })
+                .error(function(err) {
+                    console.log('Could not retrive roster list ' + err)
+                })
+
+        })
+        .error(function(err) {
+            console.log('Could not retrive user info ' + err);
+        })
+    //teamUserIsIn[index]["teamName"]
 
 })
 
