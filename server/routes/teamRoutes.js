@@ -20,6 +20,12 @@ var router = function() {
   	userCtrl.joinTeam(req, res);
   });
 
+  teamRouter.route('/listAllTeams')
+  .get(function (req, res) {
+    console.log(req.body);
+    teamCtrl.listAllTeams(req, res);
+  });
+
   return teamRouter;
 };
 
