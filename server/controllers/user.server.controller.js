@@ -13,10 +13,8 @@ exports.createUser = function(req, res) {
     user.save(function(err, results) {
         if (err) {
             var errMsg = 'Sorry, there was an error creating your user profile ' + err;
-            //needs to render the index with register view
-            //res.render('index', { message: errMsg });
             console.log(errMsg);
-            res.end();
+            res.sendStatus(500);
         } else {
             // needs to redirect to the home view
             // res.redirect(301, '/');
@@ -33,7 +31,7 @@ exports.listAllUsers = function(req, res) {
         .exec(function(err, users){
            //res.render('index', { users: results });
            console.log("users "+JSON.stringify(users));
-           res.end();
+           res.send({ users: users });
         });
 };
 
@@ -48,7 +46,7 @@ exports.getUserInfo = function(req, res) {
             //res.render('index', { teams: user.teams });
             console.log("user "+JSON.stringify(user));
             console.log("teams "+JSON.stringify(user.teams));
-            res.end();
+            res.send({ user: user });
         });
 };
 
@@ -66,22 +64,17 @@ exports.joinTeam = function(req, res) {
                     team.save(function(err) {
                         if (err) {
                             var errMsg = 'Sorry, there was an error adding user to team ' + err;
-                            //needs to render the joinATeam view
-                            //res.render('index', { message: errMsg });
                             console.log(errMsg);
-                            res.end();
+                            res.sendStatus(500);
                         } else {
                             user.save(function(err) {
                                 if (err) {
                                     var errMsg = 'Sorry, there was an error adding team to users teams ' + err;
-                                    //needs to render the joinATeam view
-                                    //res.render('index', { message: errMsg });
                                     console.log(errMsg);
-                                    res.end();
+                                    res.sendStatus(500);
                                 } else {
                                     console.log('Team joined!');
-                                    //needs to redirect to the home view
-                                    res.redirect(301, '/roster');
+                                    res.sendStatus(200);
                                 }
                             });
                         }
@@ -104,22 +97,17 @@ exports.leaveTeam = function(req, res) {
                     team.save(function(err) {
                         if (err) {
                             var errMsg = 'Sorry, there was an error leaving the team ' + err;
-                            //needs to render the joinATeam view
-                            //res.render('index', { message: errMsg });
                             console.log(errMsg);
-                            res.end();
+                            res.sendStatus(500);
                         } else {
                             user.save(function(err) {
                                 if (err) {
                                     var errMsg = 'Sorry, there was an error leaving the team ' + err;
-                                    //needs to render the joinATeam view
-                                    //res.render('index', { message: errMsg });
                                     console.log(errMsg);
-                                    res.end();
+                                    res.sendStatus(500);
                                 } else {
                                     console.log('Team left!');
-                                    //needs to redirect to the home view
-                                    res.redirect(301, '/');
+                                    res.sendStatus(200);
                                 }
                             });    
                         }
@@ -139,6 +127,6 @@ exports.listTeams = function(req, res) {
             //needs to render home view?
             //res.render('index', { teams: user.teams });
             console.log("teams "+user.teams);
-            res.end();
+            res.send({ teams: user.teams });
         });
 };
