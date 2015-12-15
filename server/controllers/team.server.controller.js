@@ -20,22 +20,16 @@ exports.createTeam = function(req, res) {
             team.save(function(err) {
                 if (err) {
                     var errMsg = 'Sorry, there was an error creating your team ' + err;
-                    //needs to render the index with createATeam view
-                    //res.render('index', { message: errMsg });
                     console.log(errMsg);
-                    res.end();
+                    res.sendStatus(500);
                 } else {
                     user.save(function(err) {
                         if (err) {
                             var errMsg = 'Sorry, there was an error creating your team ' + err;
-                            //needs to render the joinATeam view
-                            //res.render('index', { message: errMsg });
                             console.log(errMsg);
-                            res.end();
+                            res.sendStatus(500);
                         } else {
                             console.log('Team created!');
-                            //needs to redirect to the home view
-                            // res.redirect(301, '/roster');
                             res.sendStatus(200);
                         }
                     });
@@ -48,10 +42,8 @@ exports.listAllTeams = function(req, res) {
     Team.find()
         .sort({ createdOn: 'desc'})
         .exec(function(err, teams){
-            //needs to render to some view
-            //res.render('index', { teams: teams });
             console.log("all teams "+JSON.stringify(teams));
-            res.end();
+            res.send({ teams: teams })
         });
 };
 
@@ -62,12 +54,10 @@ exports.getTeamInfo = function(req, res) {
         .populate( 'users createdBy' )
         .sort({ createdOn: 'desc'})
         .exec(function(err, team) {
-            //needs to render home view?
-            //res.render('index', { users: team.users });
             console.log("team "+JSON.stringify(team));
             console.log("team leader "+JSON.stringify(team.createdBy));
             console.log("users "+JSON.stringify(team.users));
-            res.end();
+            res.send({ team: team });
         });
 };
 
@@ -86,22 +76,17 @@ exports.removeUser = function(req, res) {
                     user.save(function(err) {
                         if (err) {
                             var errMsg = 'Sorry, there was an error removing the user ' + err;
-                            //needs to render the roster view
-                            //res.render('index', { message: errMsg });
                             console.log(errMsg);
-                            res.end();
+                            res.sendStatus(500);
                         } else {
                             team.save(function(err) {
                                 if (err) {
                                     var errMsg = 'Sorry, there was an error removing the user ' + err;
-                                    //needs to render the roster view
-                                    //res.render('index', { message: errMsg });
                                     console.log(errMsg);
-                                    res.end();
+                                    res.sendStatus(500);
                                 } else {
                                     console.log('User removed!');
-                                    //needs to redirect to the home view
-                                    res.redirect(301, '/');
+                                    res.sendStatus(200);
                                 }
                             });    
                         }
@@ -118,8 +103,6 @@ exports.listUsers = function(req, res) {
         .populate( 'users' )
         .sort({ createdOn: 'desc' })
         .exec(function(err, team) {
-            //needs to render roster view
-            // res.render('index', { users: team.users });
             console.log("team members "+JSON.stringify(team.users));
             res.send({ users: team.users });
         });
@@ -140,22 +123,17 @@ exports.addUser = function(req, res) {
                     team.save(function(err) {
                         if (err) {
                             var errMsg = 'Sorry, there was an error adding user to team ' + err;
-                            //needs to render the joinATeam view
-                            //res.render('index', { message: errMsg });
                             console.log(errMsg);
-                            res.end();
+                            res.sendStatus(500);
                         } else {
                             user.save(function(err) {
                                 if (err) {
                                     var errMsg = 'Sorry, there was an error adding team to users teams ' + err;
-                                    //needs to render the joinATeam view
-                                    //res.render('index', { message: errMsg });
                                     console.log(errMsg);
-                                    res.end();
+                                    res.sendStatus(500);
                                 } else {
                                     console.log('User added!');
-                                    //needs to redirect to the home view
-                                    res.redirect(301, '/');
+                                    res.sendStatus(200);
                                 }
                             });
                         }
