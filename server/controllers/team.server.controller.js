@@ -124,7 +124,7 @@ exports.addUser = function(req, res) {
                         if (err) {
                             var errMsg = 'Sorry, there was an error adding user to team ' + err;
                             console.log(errMsg);
-                            res.standStatus(500);
+                            res.sendStatus(500);
                         } else {
                             user.save(function(err) {
                                 if (err) {
