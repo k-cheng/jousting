@@ -1,9 +1,15 @@
 <ion-view title="Roster">
     <ion-content padding="'true'" class="has-header">
-    <div ng-app="app">
-        <h3>Ricky &amp; The Walkers</h3>
+    <div ng-app="app" ng-model="teamInfo.teamName">
+        <h3>{{ teamInfo.teamName }}</h3>
         <ion-list>
-            <ion-item menu-close="" class="item-thumbnail-left">
+            <h4>Challengers</h4>
+            <ul>
+                <li ng-repeat="users in teamInfo.users">
+                {{ teamInfo.users[$index]['userName'] }}
+                </li>
+            </ul>
+            <!-- <ion-item menu-close="" class="item-thumbnail-left">
                 <img src="img/MZ0UDKplQGia0OkBShZS_avi.jpg">
                 <h2>Avi Samloff</h2>
                 <p>theavish</p>
@@ -27,7 +33,7 @@
                 <img src="img/z91U0MVqSb6S0LNhhLPd_Screen Shot 2015-12-03 at 7.53.52 AM.png">
                 <h2>Cory Dang</h2>
                 <p>coryd4ng</p>
-            </ion-item>
+            </ion-item> -->
         </ion-list>
     </div>
     </ion-content>
