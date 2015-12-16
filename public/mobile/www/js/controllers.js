@@ -37,6 +37,18 @@ angular.module('app.controllers', [])
         });
     };
 
+    $scope.fbLogin = function() {
+        ngFB.login({scope: 'email,read_stream,publish_actions'}).then(
+        function (response) {
+            if (response.status === 'connected') {
+                console.log('Facebook login succeeded');
+                $scope.closeLogin();
+            } else {
+                alert('Facebook login failed');
+            }
+        });
+    }
+
     $scope.logout = function() {
         $http.post('/logout')
         .success(function() {
