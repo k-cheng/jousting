@@ -1,5 +1,6 @@
 var User = require('../models/user.server.model.js');
 var Team = require('../models/team.server.model.js');
+var Challenge = require('../models/challenge.server.model.js');
 
 exports.createTeam = function(req, res) {
     var teamName = req.body.teamName;
@@ -51,12 +52,13 @@ exports.getTeamInfo = function(req, res) {
     var teamName = req.body.teamName;
 
     Team.findOne({ teamName: teamName })
-        .populate( 'users createdBy' )
+        .populate( 'users createdBy challenges' )
         .sort({ createdOn: 'desc'})
         .exec(function(err, team) {
             console.log("team "+JSON.stringify(team));
             console.log("team leader "+JSON.stringify(team.createdBy));
             console.log("users "+JSON.stringify(team.users));
+            console.log("challenges "+JSON.stringify(team.challenges));
             res.send({ team: team });
         });
 };

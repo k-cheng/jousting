@@ -7,6 +7,7 @@ exports.createUser = function(req, res) {
         userName:   req.body.userName,
         password:   req.body.password,
         email:      req.body.email,
+        points:     0,
         picture:    req.body.picture
     });
 
@@ -16,8 +17,6 @@ exports.createUser = function(req, res) {
             console.log(errMsg);
             res.sendStatus(500);
         } else {
-            // needs to redirect to the home view
-            // res.redirect(301, '/');
             req.login(results, function() {
                 res.send(req.user);
             });
@@ -29,7 +28,6 @@ exports.listAllUsers = function(req, res) {
     User.find()
         .sort({ createdOn: 'desc'})
         .exec(function(err, users){
-           //res.render('index', { users: results });
            console.log("users "+JSON.stringify(users));
            res.send({ users: users });
         });
@@ -39,13 +37,12 @@ exports.getUserInfo = function(req, res) {
     var userName = req.body.userName;
 
     User.findOne({ userName: userName })
-        .populate( 'teams' )
+        .populate( 'teams completedChallenges' )
         .sort({ createdOn: 'desc'})
         .exec(function(err, user) {
-            //needs to render home view?
-            //res.render('index', { teams: user.teams });
             console.log("user "+JSON.stringify(user));
             console.log("teams "+JSON.stringify(user.teams));
+            console.log("completed challenges "+JSON.stringify(user.completedChallenges));
             res.send({ user: user });
         });
 };
@@ -116,6 +113,18 @@ exports.leaveTeam = function(req, res) {
         });
 };
 
+exports.listCompletedChallenges = function(req, res) {
+    var userName = req.body.userName;
+
+    User.findOne({ userName: userName })
+        .populate( 'completedChallenges' )
+        .sort({ createdOn: 'desc'})
+        .exec(function(err, user) {
+            console.log('completed challenges'+user.completedChallenges);
+            res.send({ completedChallenges: user.completedChallenges });
+        })
+};
+
 //not really necessary, functionality covered by getUserInfo
 exports.listTeams = function(req, res) {
     var userName = req.body.userName;
@@ -124,8 +133,6 @@ exports.listTeams = function(req, res) {
         .populate( 'teams' )
         .sort({ createdOn: 'desc'})
         .exec(function(err, user) {
-            //needs to render home view?
-            //res.render('index', { teams: user.teams });
             console.log("teams "+user.teams);
             res.send({ teams: user.teams });
         });
