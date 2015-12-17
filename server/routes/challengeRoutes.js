@@ -1,6 +1,6 @@
 // Packages
 var express = require('express');
-var rosterRouter = express.Router();
+var challengeRouter = express.Router();
 
 // Controllers
 var challengeCtrl = require('../controllers/challenge.server.controller');
