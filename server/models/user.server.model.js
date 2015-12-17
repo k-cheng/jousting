@@ -50,6 +50,10 @@ var userSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Challenge'
     }],
+    submissions: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Submission'
+    }],
     picture: {
 		type: String,
 		trim: true

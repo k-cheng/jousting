@@ -1,6 +1,7 @@
 var User = require('../models/user.server.model.js');
 var Team = require('../models/team.server.model.js');
 var Challenge = require('../models/challenge.server.model.js');
+var Submission = require('../models/submission.server.model.js');
 
 exports.createChallenge = function(req, res) {
     var points 			= req.body.points;
@@ -43,29 +44,49 @@ exports.createChallenge = function(req, res) {
 exports.completeChallenge = function(req, res) {
 	var userName 		= req.body.userName;
 	var challengeName 	= req.body.challengeName;
+    var comment         = req.body.comment;
+    var challengeSubmission = req.body.challengeSubmission;
 
 	User.findOne({ userName: userName })
 		.exec(function(err, user) {
 			Challenge.findOne({ challengeName: challengeName })
 				.exec(function(err, challenge){
+                    var submission = new Submission({
+                        submission:     challengeSubmission,
+                        comment:        comment,
+                        user:           user._id,
+                        challenge:      challenge._id,
+                        team:           challenge.team
+                    });
+
 					user.completedChallenges.addToSet(challenge._id);
+					user.submissions.addToSet(submission._id);
 					user.points += challenge.points;
 					challenge.usersCompleted.addToSet(user._id);
+                    challenge.submissions.addToSet(submission._id);
 
-					challenge.save(function(err) {
+                    submission.save(function(err) {
                         if (err) {
                             var errMsg = 'Sorry, there was an error completing the challenge ' + err;
                             console.log(errMsg);
                             res.sendStatus(500);
                         } else {
-                            user.save(function(err) {
+        					challenge.save(function(err) {
                                 if (err) {
                                     var errMsg = 'Sorry, there was an error completing the challenge ' + err;
                                     console.log(errMsg);
                                     res.sendStatus(500);
                                 } else {
-                                    console.log('Challenge completed!');
-                                    res.sendStatus(200);
+                                    user.save(function(err) {
+                                        if (err) {
+                                            var errMsg = 'Sorry, there was an error completing the challenge ' + err;
+                                            console.log(errMsg);
+                                            res.sendStatus(500);
+                                        } else {
+                                            console.log('Challenge completed!');
+                                            res.sendStatus(200);
+                                        }
+                                    });
                                 }
                             });
                         }
@@ -123,5 +144,5 @@ exports.listUsersCompleted = function(req, res) {
 };
 
 exports.removeChallenge = function(req, res) {
-	
+
 };
