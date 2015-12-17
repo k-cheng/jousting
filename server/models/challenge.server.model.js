@@ -23,6 +23,10 @@ var challengeSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'User'
     }],
+    submissions: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Submission'
+    }],
     picture: {
 		type: String,
 		trim: true
