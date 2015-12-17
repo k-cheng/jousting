@@ -178,6 +178,10 @@ angular.module('app.controllers', [])
 
 })
 
+.controller('challenges', function($scope) {
+
+})
+
 .controller('ImageController', function($scope, $timeout, $cordovaDevice, $cordovaFile, $ionicPlatform, $cordovaEmailComposer, $ionicActionSheet, ImageService, FileService) {
  
   $ionicPlatform.ready(function() {

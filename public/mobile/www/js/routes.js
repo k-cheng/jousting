@@ -139,6 +139,19 @@ angular.module('app.routes', [])
     }
   })
 
+   .state('challenges', {
+    url: '/challenges',
+    resolve: {
+      loggedin: checkLoggedin
+    },
+    views: {
+      'app-nav': {
+        templateUrl: 'templates/challenges.html',
+        controller: 'challenges'
+      }
+    }
+  })
+
   .state('selfieChallenge', {
     url: '/selfieChallenge',
     views: {
