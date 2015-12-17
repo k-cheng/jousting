@@ -28,8 +28,9 @@ require('./server/config/passport')(app);
 var authRouter = require('./server/routes/authRoutes')();
 var teamRouter = require('./server/routes/teamRoutes')();
 var rosterRouter = require('./server/routes/rosterRoutes')();
+var challengeRouter = require('./server/routes/challengeRoutes')();
 // Routes
-app.use('/', authRouter, teamRouter, rosterRouter);
+app.use('/', authRouter, teamRouter, rosterRouter, challengeRouter);
 
 app.listen(port, function (err) {
   console.log('running server on port over ' + port + "!!!!");
