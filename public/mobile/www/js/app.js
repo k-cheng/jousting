@@ -8,7 +8,7 @@
 (function(angular) {
   'use strict';
 
-var app = angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services', 'app.directives'])
+var app = angular.module('app', ['ionic', 'ngCordova', 'app.controllers', 'app.routes', 'app.services', 'app.directives'])
 
 app.run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
