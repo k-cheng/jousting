@@ -31,3 +31,15 @@ exports.getSubmissionInfo = function(req, res) {
 				});
 		});
 };
+
+exports.listUserSubmissions = function(req, res) {
+	userName = req.body.userName;
+
+	User.findOne({ userName: userName })
+		.populate( 'submissions' )
+		.sort({ createdOn: 'desc' })
+		.exec(function(err, user) {
+			console.log("user submissions "+JSON.stringify(user.submissions));
+			res.send({ submissions: user.submissions });
+		});
+};
