@@ -137,6 +137,16 @@ angular.module('app.routes', [])
         controller: 'theTeamCtrl'
       }
     }
+  })
+
+  .state('selfieChallenge', {
+    url: '/selfieChallenge',
+    views: {
+      'app-nav': {
+        templateUrl: 'templates/selfieChallenge.html',
+        controller: 'ImageController'
+      }
+    }
   });
 
   // if none of the above states are matched, use this as the fallback

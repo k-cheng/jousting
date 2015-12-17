@@ -26,6 +26,7 @@ build/Release
 node_modules
 bower_components
 public/mobile/www/lib
+public/mobile/platforms/ios
 platforms
 plugins
 
