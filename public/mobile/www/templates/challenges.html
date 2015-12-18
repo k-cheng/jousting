@@ -1,10 +1,19 @@
 <ion-view title="Challenges">
     <ion-content padding="'true'" class="has-header">
     <div ng-app="app">
-        <form class="list">
+        <!-- <form class="list">
             <label class="item item-input" name="teamname">
             Currently Active Challenges:
-        </form>
+        </form> -->
+        <h3>{{ teamInfo.teamName }}</h3>
+        <ion-list>
+	        <h4>Challenges</h4>
+	        <ul>
+	            <li ng-repeat="challenge in challenges">
+	            <a ng-href="/#/{{challenge}}">{{ challenge }}</a>
+	            </li>
+	        </ul>
+        </ion-list>
     </div>
     </ion-content>
 </ion-view>

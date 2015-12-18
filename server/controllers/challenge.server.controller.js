@@ -127,7 +127,15 @@ exports.getChallengeInfo = function(req, res) {
 			console.log("points challenge is worth "+JSON.stringify(challenge.points));
 			console.log("team associated with challenge "+JSON.stringify(challenge.team));
 			console.log("users who completed challenge "+JSON.stringify(challenge.usersCompleted));
-			res.send({ challenge: challenge });
+			//res.send({ challenge: challenge });
+
+			Team.findOne({ teamName: challenge.team.teamName })
+				.populate( 'users' )
+				.exec(function(err, team) {
+					console.log("users "+JSON.stringify(team.users));
+					res.send({ users: team.users, challenge: challenge });
+				});
+
 		});
 };
 
