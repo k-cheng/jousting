@@ -170,6 +170,30 @@ angular.module('app.controllers', [])
 
 })
 
+// .controller('challengeCtrl', function($scope, $http) {
+//     var userNode = JSON.parse(window.localStorage['user']);
+//     var teamUserIsIn;
+//     var challenges = [];
+//     $scope.points;
+//     $scope.challengeName;
+
+//     $http.post('/getTeamName', {
+//         userName: userNode["userName"]
+//     })
+//         .success(function(teams) {
+//             teamUserIsIn = teams["teams"];
+//         })
+//         .error(function(err) {
+//             console.log('Could not retrive user info ' + err);
+//         });
+
+//     $http.post('createChallenge', {
+//         challengeName: $scope.challengeName,
+//         teamName: teamUserIsIn[0]['_id'],
+//         points: $scope.points
+//     })
+// })
+
 .controller('gauntletCtrl', function($scope) {
 
 })
@@ -178,11 +202,44 @@ angular.module('app.controllers', [])
 
 })
 
-.controller('challenges', function($scope) {
+.controller('challenges', function($scope, $http) {
+    var userNode = JSON.parse(window.localStorage['user']);
+    console.log("in challenge control");
+    $scope.teamInfo = {users: [], teamName: ''}
+    $scope.challenges = [];
+    var teamUserIsIn;
+    var usersInTeam;
 
+    $http.post('/getTeamName', {
+        userName: userNode["userName"]
+    })
+        .success(function(teams) {
+            teamUserIsIn = teams["teams"];
+            console.log("teamarray "+JSON.stringify(teamUserIsIn[0]['teamName']));
+            $scope.teamInfo.teamName = teamUserIsIn[0]['teamName'];
+            console.log('This is the scope.teamInfo.teamName: ' + $scope.teamInfo.teamName)
+
+            $http.post('/listTeamChallenges', {
+                teamName: teamUserIsIn[0]["teamName"]
+            })
+                .success(function(challenges) {
+                    console.log(JSON.stringify(challenges));
+                    for(var i = 0 ; i < challenges["challenges"].length ; i++){
+                        $scope.challenges.push(challenges["challenges"][i]["challengeName"]);
+                    }
+                    console.log("challenge names "+JSON.stringify($scope.challenges));
+                })
+                .error(function(err) {
+                    console.log('Could not retrive challenge list ' + err)
+                });
+
+        })
+        .error(function(err) {
+            console.log('Could not retrive team info ' + err);
+        });
 })
 
-.controller('ImageController', function($scope, $timeout, $cordovaDevice, $cordovaFile, $ionicPlatform, $cordovaEmailComposer, $ionicActionSheet, ImageService, FileService) {
+.controller('ImageController', function($scope, $http, $timeout, $cordovaDevice, $cordovaFile, $ionicPlatform, $cordovaEmailComposer, $ionicActionSheet, ImageService, FileService) {
  
   $ionicPlatform.ready(function() {
     $timeout(function() {
@@ -260,4 +317,35 @@ angular.module('app.controllers', [])
       }
     });
   }
+
+  var userNode = JSON.parse(window.localStorage['user']);
+  var teamUserIsIn;
+  var challenges = [];
+  $scope.points;
+  $scope.challengeName;
+
+  $http.post('/getTeamName', {
+      userName: userNode["userName"]
+  })
+    .success(function(teams) {
+      teamUserIsIn = teams["teams"];
+    })
+    .error(function(err) {
+       console.log('Could not retrive user info ' + err);
+    });
+
+  $scope.createChallenge = function(){
+    $http.post('/createChallenge', {
+      points: $scope.points,
+      teamName: teamUserIsIn[0]['teamName'],
+      challengeName: $scope.challengeName
+    })
+      .success(function() {
+        console.log('Challenge created!');
+      })
+      .error(function(err) {
+        console.log('Could not create challenge ' + err);
+      });
+  }
+
 });

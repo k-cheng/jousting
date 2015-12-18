@@ -113,6 +113,19 @@ angular.module('app.routes', [])
     }
   })
 
+  // .state('selfieChallenge', {
+  //   url: '/selfie-challenge',
+  //   resolve: {
+  //     loggedin: checkLoggedin
+  //   },
+  //   views: {
+  //     'app-nav': {
+  //       templateUrl: 'templates/selfieChallenge.html',
+  //       controller: 'challengeCtrl'
+  //     }
+  //   }
+  // })
+
   .state('gauntlet', {
     url: '/gauntlet',
     resolve: {
@@ -154,6 +167,9 @@ angular.module('app.routes', [])
 
   .state('selfieChallenge', {
     url: '/selfieChallenge',
+    resolve: {
+      loggedin: checkLoggedin
+    },
     views: {
       'app-nav': {
         templateUrl: 'templates/selfieChallenge.html',
