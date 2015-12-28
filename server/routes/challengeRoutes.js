@@ -44,6 +44,11 @@ var router = function() {
   	submissionCtrl.listUserSubmissions(req, res);
   });
 
+  challengeRouter.route('/getSubmissionInfo')
+  .post(function (req, res) {
+    submissionCtrl.getSubmissionInfo(req, res);
+  });
+
   return challengeRouter;
 };
 

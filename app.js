@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var passport = require('passport');
 var session = require('express-session');
 var mongoose = require('mongoose');
+var busboyBodyParser = require('busboy-body-parser');
 
 // Connect to MongoDB
 mongoose.connect('mongodb://localhost:27017/jousting_db');
@@ -19,6 +20,7 @@ app.use(express.static(__dirname + '/public/mobile/www'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 app.use(cookieParser());
+app.use(busboyBodyParser());
 app.use(session({secret: 'devHouse'}));
 
 // Run Passport
