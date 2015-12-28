@@ -1,7 +1,6 @@
 <ion-view title="Register an account">
     <ion-content padding="'true'" scroll="false" class="has-header">
-    <div ng-app='app'>
-        <form class="form-auth" name="form" class="css-form" ng-submit="register()" novalidate>
+        <form ng-controller="RegisterCtrl" class="form-auth" name="form" class="css-form" ng-submit="register()" novalidate>
             <ion-list>
                 <label class="item item-input">
                     <input type="text" ng-model="user.fullName" name="name" placeholder="Name"/>
@@ -38,7 +37,5 @@
             Login with Facebook
             </button>
         </label>
-
-        </div>
     </ion-content>
 </ion-view>

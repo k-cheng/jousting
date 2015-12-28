@@ -48,8 +48,7 @@ angular.module('app.routes', [])
     url: '/register',
     views: {
       'app-nav': {
-        templateUrl: 'templates/register.html',
-        controller: 'authCtrl'
+        templateUrl: 'templates/register.html'
       }
     }
   })
@@ -58,8 +57,7 @@ angular.module('app.routes', [])
     url: '/login',
     views: {
       'app-nav': {
-        templateUrl: 'templates/login.html',
-        controller: 'authCtrl'
+        templateUrl: 'templates/login.html'
       }
     }
   })
