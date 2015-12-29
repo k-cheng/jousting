@@ -32,7 +32,7 @@ var authRouter = require('./server/routes/AuthRoutes')();
 var teamRouter = require('./server/routes/teamRoutes')();
 var rosterRouter = require('./server/routes/rosterRoutes')();
 var challengeRouter = require('./server/routes/challengeRoutes')();
-app.use('/auth', authRouter);
+app.use('/', authRouter);
 app.use('/', teamRouter, rosterRouter, challengeRouter);
 
 app.listen(port, function (err) {
