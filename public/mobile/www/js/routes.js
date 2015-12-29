@@ -9,7 +9,6 @@ angular.module('app')
     views: {
       'app-nav': {
         templateUrl: 'templates/register.html',
-        controller: 'RegisterCtrl'
       }
     }
   })
@@ -23,12 +22,11 @@ angular.module('app')
     }
   })
 
-  .state('createATeam', {
-    url: '/create-a-team',
+  .state('createteam', {
+    url: '/create-team',
     views: {
       'app-nav': {
-        templateUrl: 'templates/createATeam.html',
-        controller: 'createATeamCtrl'
+        templateUrl: 'templates/createTeam.html',
       }
     }
   })
@@ -80,7 +78,6 @@ angular.module('app')
     views: {
       'app-nav': {
         templateUrl: 'templates/gauntlet.html',
-        controller: 'GauntletCtrl'
       }
     }
   })

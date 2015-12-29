@@ -1,27 +1,39 @@
 var User = require('../models/user.server.model.js');
 var Team = require('../models/team.server.model.js');
+var moment = require('moment');
+var jwt = require('jwt-simple');
 
 exports.createUser = function(req, res) {
-    var user = new User({
-        fullName:   req.body.fullName,
-        userName:   req.body.userName,
-        password:   req.body.password,
-        email:      req.body.email,
+    
+  req.user = req.body;
+
+  var searchUser = {
+    userName: req.user.userName
+  };
+
+  User.findOne(searchUser, function(err, user) {
+    if(err) {
+      throw err;
+    }
+
+    if(user) {
+      return res.status(401).send({message: 'Email already exists'}); //401 is unauthorized
+    }
+
+    var newUser = new User({
+        fullName:   req.user.fullName,
+        userName:   req.user.userName,
+        password:   req.user.password,
+        email:      req.user.email,
         points:     0,
-        picture:    req.body.picture
+        picture:    req.user.picture
     });
 
-    user.save(function(err, results) {
-        if (err) {
-            var errMsg = 'Sorry, there was an error creating your user profile ' + err;
-            console.log(errMsg);
-            res.sendStatus(500);
-        } else {
-            req.login(results, function() {
-                res.send(req.user);
-            });
-        }
+    newUser.save(function(err) {
+        createSendToken(newUser, res);
     });
+  });
+
 };
 
 exports.listAllUsers = function(req, res) {
@@ -137,3 +149,49 @@ exports.listTeams = function(req, res) {
             res.send({ teams: user.teams });
         });
 };
+
+exports.verifyUser = function(req, res) {
+
+  req.user = req.body;
+
+  var searchUser = {
+    userName: req.user.userName
+  };
+
+  User.findOne(searchUser, function(err, user) {
+    if(err) {
+      throw err;
+    }
+
+    if(!user) {
+      //return is used to stop the rest from executing
+      return res.status(401).send({message: 'Wrong username/password'}); //401 is unauthorized
+    }
+
+    user.comparePasswords(req.user.password, function(err, isMatch) {
+      if(err) {
+        throw err;
+      }
+      console.log(isMatch);
+      if(!isMatch) {
+        return res.status(401).send({message: 'Wrong username/password'});
+      }
+      createSendToken(user, res);
+    });
+  });
+
+};
+
+function createSendToken(user, res) {
+  var payload = { 
+    sub: user.id,
+    exp: moment().add(10, 'days').unix()
+  };
+
+  var token = jwt.encode(payload, 'shhh..');
+
+  res.status(200).send({
+    user: user.toJSON(),
+    token: token
+  });
+}

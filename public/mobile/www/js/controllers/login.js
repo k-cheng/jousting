@@ -2,12 +2,11 @@ angular.module('app').controller('LoginCtrl', function($scope, $http, $auth, $st
   
   $scope.submit = function() {
     $auth.login({
-      email: $scope.user.email,
+      userName: $scope.user.userName,
       password: $scope.user.password
     }).then(function(res) {
       $state.go('gauntlet');
-      var message = 'Thanks for coming back ' + res.data.user.email + '!';
-
+      var message = 'Thanks for coming back ' + res.data.user.userName + '!';
       if (!res.data.user.active)
         message = 'Just a reminder, please activate your account soon :)';
 
