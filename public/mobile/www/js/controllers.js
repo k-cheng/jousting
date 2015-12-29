@@ -1,7 +1,7 @@
 angular.module('app.controllers', [])
 
 .controller('createATeamCtrl', function($scope, $http, $location) {
-    var userNode = JSON.parse(window.localStorage['user']);
+    var userNode = JSON.parse(window.localStorage[satellizer_token]);
     console.log('userNode team is ', userNode.teams)
     console.log('scope user is', userNode.userName);
     $scope.team = {teamName: '', createdBy: ''};

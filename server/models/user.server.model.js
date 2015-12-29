@@ -93,7 +93,6 @@ userSchema.pre('save', function(next) {
       if (err) {
         return next(err);
       }
-      //if it worked, we set our password to the new hash
       user.password = hash;
       next();
     });
