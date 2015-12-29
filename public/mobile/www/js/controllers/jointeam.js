@@ -1,5 +1,6 @@
 angular.module('app').controller('JoinTeamCtrl', function($scope, $http, API_URL) {
-    var userNode = JSON.parse(window.localStorage.userName);
+    
+    var user = JSON.parse(window.localStorage.userName);
     var listOfTeams = [];
     $scope.team = {teamName: '', createdBy: ''};
     console.log("userNode "+JSON.stringify(userNode));
