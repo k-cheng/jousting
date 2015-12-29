@@ -22,16 +22,7 @@ angular.module('app')
     }
   })
 
-  .state('logout', {
-    url: '/logout'
-    // views: {
-    //   'app-nav': {
-    //     templateUrl: 'templates/home.html',
-    //   }
-    // }
-  })
-
-  .state('createTeam', {
+  .state('createteam', {
     url: '/create-team',
     views: {
       'app-nav': {
@@ -40,12 +31,12 @@ angular.module('app')
     }
   })
 
-  .state('joinTeam', {
-    url: '/join-team',
+  .state('joinATeam', {
+    url: '/join-a-team',
     views: {
       'app-nav': {
-        templateUrl: 'templates/joinTeam.html',
-        controller: 'JoinTeamCtrl'
+        templateUrl: 'templates/joinATeam.html',
+        controller: 'joinATeamCtrl'
       }
     }
   })
@@ -124,8 +115,8 @@ angular.module('app')
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/');
 
-  $authProvider.loginUrl = API_URL + 'login';
-  $authProvider.signupUrl = API_URL + 'register';
+  $authProvider.loginUrl = API_URL + 'auth/login';
+  $authProvider.signupUrl = API_URL + 'auth/register';
 
 })
 

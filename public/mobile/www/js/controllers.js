@@ -1,5 +1,64 @@
 angular.module('app.controllers', [])
 
+.controller('createATeamCtrl', function($scope, $http, $location) {
+    var userNode = JSON.parse(window.localStorage[satellizer_token]);
+    console.log('userNode team is ', userNode.teams)
+    console.log('scope user is', userNode.userName);
+    $scope.team = {teamName: '', createdBy: ''};
+
+    $scope.createTeam = function() {
+        $http.post('/createTeam', {
+            userName: userNode.userName,
+            teamName: $scope.team.teamName
+        })
+        .success(function() {
+            console.log($scope.team.teamName + ' has entered the gauntlet!');
+            $location.url('/roster');
+        })
+        .error(function(err) {
+            console.log('Team was not created :( '+err);
+        })
+        // get team name
+    };
+})
+
+.controller('joinATeamCtrl', function($scope, $http, $location) {
+    var userNode = JSON.parse(window.localStorage['user']);
+    var listOfTeams = [];
+    $scope.team = {teamName: '', createdBy: ''};
+    //console.log('cory', $scope.team.teamName);
+    console.log("userNode "+JSON.stringify(userNode));
+
+    $http.get('/listAllTeams')
+        .success(function(teams) {
+            console.log("list of teams "+JSON.stringify(teams));
+            //teams["teams"][i]["teamName"]
+            for (var i = 0; i < teams['teams'].length; i++) {
+                console.log("teamnames: "+teams['teams'][i]['teamName'])
+                listOfTeams.push(teams['teams'][i]['teamName']);
+            }
+        });
+
+    $scope.joinTeam = function() {
+        console.log('In the Join Team function ' + $scope.team.teamName);
+        $http.post('/joinTeam', {
+            userName: userNode["userName"],
+            teamName: $scope.team.teamName
+        })
+            .success(function() {
+                $location.url('/roster')
+                console.log('userName: ' + userNode["userName"] + ' teamName: ' + $scope.team.teamName)
+            })
+            .error(function(err) {
+                console.log('NOT A REAL TEAM!' + err);
+            })
+        }
+})
+
+.controller('homeCtrl', function($scope) {
+
+})
+
 .controller('rosterCtrl', function($scope, $http) {
     var userNode = JSON.parse(window.localStorage['user']);
     console.log("in roster control");
