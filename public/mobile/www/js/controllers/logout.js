@@ -1,11 +1,6 @@
-angular.module('app').controller('LogoutCtrl', function($scope, $auth, $location, $window) {
+angular.module('app').controller('LogoutCtrl', function($scope, $auth, $state) {
 
-  $scope.logout = function() {
-    $auth.logout()
-    .then(function() {
-      $window.localStorage.removeItem('userName');
-      $location.path('/');
-    });
-  };
+  $auth.logout();
+  $state.go('home');
 
 });
