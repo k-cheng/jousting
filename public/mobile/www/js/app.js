@@ -8,9 +8,9 @@
 (function(angular) {
   'use strict';
 
-var app = angular.module('app', ['ionic', 'ngCordova', 'app.controllers', 'app.routes', 'app.services', 'app.directives'])
+angular.module('app', ['ionic', 'ngCordova', 'app.services', 'app.directives', 'satellizer'])
 
-app.run(function($ionicPlatform) {
+.run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -24,7 +24,7 @@ app.run(function($ionicPlatform) {
   });
 })
 
-app.directive('username', function($q) {
+.directive('username', function($q) {
   return {
     require: 'ngModel',
     link: function(scope, elm, attrs, ctrl) {
