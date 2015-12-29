@@ -1,4 +1,5 @@
 angular.module('app').controller('RosterCtrl', function($scope, $http, API_URL) {
+    
     var userName = JSON.parse(window.localStorage.userName);
     console.log("in roster control");
     $scope.teamInfo = {
