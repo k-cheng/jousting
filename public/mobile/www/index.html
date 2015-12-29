@@ -29,8 +29,10 @@
     <script src="js/controllers/login.js"></script>
     <script src="js/controllers/logout.js"></script>
     <script src="js/controllers/gauntlet.js"></script>
-    <script src="js/controllers/gauntlet.js"></script>
-    <script src="js/controllers/createteam.js"></script>
+    <script src="js/controllers/createTeam.js"></script>
+    <script src="js/controllers/joinTeam.js"></script>
+    <script src="js/controllers/roster.js"></script>
+    <script src="js/controllers/challenges.js"></script>
   </head>
   <body ng-app="app" animation="slide-left-right-ios7">
     <ion-nav-view>
@@ -54,7 +56,7 @@
         Team Roster
       </a>
 
-      <a menu-close="" class="item item-icon-left" ui-sref="create-a-team">
+      <a menu-close="" class="item item-icon-left" ui-sref="createTeam">
         <i class="icon ion-person-add"></i>
         Create A Team
       </a>
@@ -64,13 +66,10 @@
         Join A Team
       </a>
 
-      <a menu-close="" ui-sref="logout" class="item item-icon-left">
+      <a menu-close="" ng-click="logout()" class="item item-icon-left">
         <i class="icon ion-log-out"></i>
         Log Out
       </a>
-
-     
-      
 
     </div>
 

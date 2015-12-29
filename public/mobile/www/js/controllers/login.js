@@ -1,4 +1,4 @@
-angular.module('app').controller('LoginCtrl', function($scope, $http, $auth, $state) {
+angular.module('app').controller('LoginCtrl', function($scope, $http, $auth, $state, $window) {
   
   $scope.submit = function() {
     $auth.login({
@@ -6,7 +6,10 @@ angular.module('app').controller('LoginCtrl', function($scope, $http, $auth, $st
       password: $scope.user.password
     }).then(function(res) {
       $state.go('gauntlet');
-      var message = 'Thanks for coming back ' + res.data.user.userName + '!';
+      var storage = $window.localStorage;
+      storage.setItem('userName', res.data.user.userName);
+      storage.setItem('teams', res.data.user.teams);
+      var message = 'Thanks for coming back ' + res.data.user + '!';
       if (!res.data.user.active)
         message = 'Just a reminder, please activate your account soon :)';
 

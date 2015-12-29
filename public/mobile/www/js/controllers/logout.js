@@ -1,6 +1,13 @@
-angular.module('app').controller('LogoutCtrl', function($scope, $auth, $state) {
+angular.module('app').controller('LogoutCtrl', function($scope, $auth, $location, $window) {
 
-  $auth.logout();
-  $state.go('home');
+  $scope.logout = function() {
+    $auth.logout()
+    .then(function() {
+      var storage = $window.localStorage;
+      storage.removeItem('user');
+      storage.removeItem('teams')
+      $location.path('/');
+    });
+  };
 
 });

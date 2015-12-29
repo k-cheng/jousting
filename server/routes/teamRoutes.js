@@ -17,21 +17,18 @@ var router = function() {
   teamRouter.route('/createTeam')
   .post(function (req, res) {
   	console.log(req.body);
-    authenticate(req,res);
   	teamCtrl.createTeam(req, res);
   });
 
   teamRouter.route('/joinTeam')
   .post(function (req, res) {
   	console.log(req.body);
-    authenticate(req,res);
   	userCtrl.joinTeam(req, res);
   });
 
   teamRouter.route('/listAllTeams')
   .get(function (req, res) {
     console.log(req.body);
-    authenticate(req,res);
     teamCtrl.listAllTeams(req, res);
   });
 
