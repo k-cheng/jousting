@@ -8,7 +8,7 @@
 (function(angular) {
   'use strict';
 
-angular.module('app', ['ionic', 'ngCordova', 'app.services', 'app.directives', 'satellizer'])
+angular.module('app', ['ionic', 'ngCordova', 'app.services', 'app.directives', 'satellizer', 'app.controllers'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {

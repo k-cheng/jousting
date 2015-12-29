@@ -36,6 +36,7 @@ angular.module('app')
     views: {
       'app-nav': {
         templateUrl: 'templates/createTeam.html',
+        controller: 'CreateTeamCtrl'
       }
     }
   })
