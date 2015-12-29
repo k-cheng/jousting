@@ -22,7 +22,16 @@ angular.module('app')
     }
   })
 
-  .state('createteam', {
+  .state('logout', {
+    url: '/logout'
+    // views: {
+    //   'app-nav': {
+    //     templateUrl: 'templates/home.html',
+    //   }
+    // }
+  })
+
+  .state('createTeam', {
     url: '/create-team',
     views: {
       'app-nav': {
@@ -31,12 +40,12 @@ angular.module('app')
     }
   })
 
-  .state('joinATeam', {
-    url: '/join-a-team',
+  .state('joinTeam', {
+    url: '/join-team',
     views: {
       'app-nav': {
-        templateUrl: 'templates/joinATeam.html',
-        controller: 'joinATeamCtrl'
+        templateUrl: 'templates/joinTeam.html',
+        controller: 'JoinTeamCtrl'
       }
     }
   })
@@ -55,7 +64,7 @@ angular.module('app')
     views: {
       'app-nav': {
         templateUrl: 'templates/roster.html',
-        controller: 'rosterCtrl'
+        controller: 'RosterCtrl'
       }
     }
   })
@@ -97,7 +106,7 @@ angular.module('app')
     views: {
       'app-nav': {
         templateUrl: 'templates/challenges.html',
-        controller: 'challenges'
+        controller: 'ChallengesCtrl'
       }
     }
   })
@@ -115,8 +124,8 @@ angular.module('app')
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/');
 
-  $authProvider.loginUrl = API_URL + 'auth/login';
-  $authProvider.signupUrl = API_URL + 'auth/register';
+  $authProvider.loginUrl = API_URL + 'login';
+  $authProvider.signupUrl = API_URL + 'register';
 
 })
 

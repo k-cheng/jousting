@@ -3,9 +3,9 @@ angular.module('app').controller('GauntletCtrl', function($scope, $http, API_URL
   $http.get(API_URL + 'gauntlet').success(function (res) {
     // $state.go('gauntlet');
   }).error(function (err) {
-    $location.path('/');
-    console.log('warning', "Unable to load Gauntlet page", err.message);
+    $state.go('home');
   });
 
 });
  
+
