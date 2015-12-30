@@ -4,10 +4,10 @@ var Challenge = require('../models/challenge.server.model.js');
 
 exports.createTeam = function(req, res) {
     var teamName = req.body.teamName;
-    var userName = req.body.userName;
+    var email = req.body.email;
     var picture  = req.body.picture;
 
-    User.findOne({ userName: userName })
+    User.findOne({ email: email })
         .exec(function(err, user) {
             var team = new Team({
                 teamName:   teamName,

@@ -59,10 +59,10 @@ exports.getUserInfo = function(req, res) {
 };
 
 exports.joinTeam = function(req, res) {
-    var userName = req.body.userName;
+    var email = req.body.email;
     var teamName = req.body.teamName;
 
-    User.findOne({ userName: userName })
+    User.findOne({ email: email })
         .exec(function(err, user){
             Team.findOne({ teamName: teamName })
                 .exec(function(err, team){
@@ -138,9 +138,9 @@ exports.listCompletedChallenges = function(req, res) {
 
 //not really necessary, functionality covered by getUserInfo
 exports.listTeams = function(req, res) {
-    var userName = req.body.userName;
+    var email = req.body.email;
 
-    User.findOne({ userName: userName })
+    User.findOne({ email: email })
         .populate( 'teams' )
         .sort({ createdOn: 'desc'})
         .exec(function(err, user) {

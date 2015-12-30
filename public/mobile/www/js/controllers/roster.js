@@ -1,28 +1,27 @@
-angular.module('app').controller('RosterCtrl', function($scope, $http, API_URL) {
+angular.module('app').controller('RosterCtrl', function($scope, $http, API_URL, $window) {
     
-  var userName = window.localStorage.userName;
+  var email = window.localStorage.email;
   
   $scope.teamInfo = {
     users: [],
     teamName: ''
   };
 
-  var teamUserIsIn;
   var usersInTeam;
  
   $http.post(API_URL + 'getTeamName', {
-    userName: userName
+    email: email
   }).success(function(teams) {
-    teamUserIsIn = teams["teams"];
-    console.log("teamarray " + JSON.stringify(teamUserIsIn[0]['teamName']));
-    $scope.teamInfo.teamName = teamUserIsIn[0]['teamName'];
-    console.log('This is the scope.teamInfo.teamName: ' + $scope.teamInfo.teamName)
+    var teamUserIsIn = $window.localStorage.team;
+    $scope.teamInfo.teamName = teamUserIsIn;
+  
+    console.log('This is the scope.teamInfo.teamName: ' + $scope.teamInfo.teamName);
 
     // NESTED HTTP POST REQUEST IS BAD PRACTICE! NEEDS REFACTORING!
     $http.post(API_URL + 'roster', {
-        teamName: teamUserIsIn[0]["teamName"]
+        teamName: teamUserIsIn
     }).success(function(users) {
-      // console.log("userarray "+JSON.stringify(users));
+      console.log('cory', users);
       usersInTeam = users["users"];
       $scope.teamInfo.users = usersInTeam;
       // for (var i = 0; i < usersInTeam.length; i++) {

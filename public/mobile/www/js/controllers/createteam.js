@@ -1,12 +1,12 @@
 angular.module('app').controller('CreateTeamCtrl', function($scope, $http, $state, API_URL) {
   
-  var userName = window.localStorage.userName;
+  var email = window.localStorage.email;
 
   $scope.team = {teamName: '', createdBy: ''};
 
   $scope.createTeam = function() {
     $http.post(API_URL + 'createTeam', {
-        userName: userName,
+        email: email,
         teamName: $scope.team.teamName
     })
     .success(function() {

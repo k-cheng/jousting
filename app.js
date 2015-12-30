@@ -41,9 +41,10 @@ var challengeRouter = require('./server/routes/challengeRoutes')();
 var facebookRouter = require('./server/routes/facebookRoutes.js');
 app.post('/auth/facebook', facebookRouter);
 
+
 // Routes
-app.use('/', authRouter);
-app.use('/', teamRouter, rosterRouter, challengeRouter);
+app.use('/', authRouter, teamRouter, rosterRouter, challengeRouter);
+
 
 server.listen(8000);
 
