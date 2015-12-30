@@ -20,6 +20,15 @@ angular.module('app').controller('LoginCtrl', function($scope, $http, $auth, $st
     }).catch(handleError);
   };
 
+  $scope.authenticate = function(provider) {
+    $auth.authenticate(provider).then(function(res) {
+      $state.go('gauntlet');
+      //the user displayname will now be under the data object
+      console.log('success', 'Welcome', 'Thanks for coming back ' + res.data.user.displayName + '!');
+    })
+    .catch(handleError);
+  }; 
+
 function handleError(err) {
   console.log('warning', 'Something went wrong :(', err.message);
 }

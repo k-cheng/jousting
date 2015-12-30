@@ -32,6 +32,10 @@ var authRouter = require('./server/routes/AuthRoutes')();
 var teamRouter = require('./server/routes/teamRoutes')();
 var rosterRouter = require('./server/routes/rosterRoutes')();
 var challengeRouter = require('./server/routes/challengeRoutes')();
+
+var facebookRouter = require('./server/routes/facebookRoutes.js');
+app.post('/auth/facebook', facebookRouter);
+
 app.use('/', authRouter);
 app.use('/', teamRouter, rosterRouter, challengeRouter);
 

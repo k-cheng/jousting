@@ -1,7 +1,6 @@
 var User = require('../models/user.server.model.js');
 var Team = require('../models/team.server.model.js');
-var moment = require('moment');
-var jwt = require('jwt-simple');
+var createSendToken = require('../services/jwt.js');
 
 exports.createUser = function(req, res) {
     
@@ -182,16 +181,4 @@ exports.verifyUser = function(req, res) {
 
 };
 
-function createSendToken(user, res) {
-  var payload = { 
-    sub: user.id,
-    exp: moment().add(10, 'days').unix()
-  };
 
-  var token = jwt.encode(payload, 'shhh..');
-
-  res.status(200).send({
-    user: user.toJSON(),
-    token: token
-  });
-}
