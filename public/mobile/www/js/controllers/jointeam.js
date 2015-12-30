@@ -1,6 +1,6 @@
-angular.module('app').controller('JoinTeamCtrl', function($scope, $http, $state, API_URL) {
+angular.module('app').controller('JoinTeamCtrl', function($scope, $http, $state, API_URL, $window) {
     
-  var userName = window.localStorage.userName;
+  var email = window.localStorage.email;
   var listOfTeams = [];
 
   $scope.team = {
@@ -11,9 +11,7 @@ angular.module('app').controller('JoinTeamCtrl', function($scope, $http, $state,
   $http.get(API_URL + 'listAllTeams')
   .success(function(teams) {
     console.log("list of teams " + JSON.stringify(teams));
-    //teams["teams"][i]["teamName"]
     for (var i = 0; i < teams['teams'].length; i++) {
-      console.log("teamnames: " + teams['teams'][i]['teamName']);
       listOfTeams.push(teams['teams'][i]['teamName']);
     }
   });
@@ -21,12 +19,13 @@ angular.module('app').controller('JoinTeamCtrl', function($scope, $http, $state,
 $scope.joinTeam = function() {
   console.log('In the Join Team function ' + $scope.team.teamName);
   $http.post(API_URL + 'joinTeam', {
-      userName: userName,
+      email: email,
       teamName: $scope.team.teamName
     })
     .success(function() {
+      var storage = $window.localStorage;
+      storage.setItem('team', $scope.team.teamName);
       $state.go('roster');
-      console.log('userName: ' + userNode["userName"] + ' teamName: ' + $scope.team.teamName);
     })
     .error(function(err) {
       console.log('NOT A REAL TEAM!' + err);

@@ -37,6 +37,7 @@ module.exports = function(req, res) {
                   }
 
                   var newUser = new User();
+                  console.log('test', profile);
                   newUser.facebookId = profile.id;
                   newUser.displayName = profile.name;
                   newUser.save(function(err) {

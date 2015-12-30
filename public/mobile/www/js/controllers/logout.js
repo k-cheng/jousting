@@ -4,7 +4,7 @@ angular.module('app').controller('LogoutCtrl', function($scope, $auth, $state, $
     $auth.logout()
     .then(function() {
       var storage = $window.localStorage;
-      storage.removeItem('userName');
+      storage.removeItem('email');
       storage.removeItem('team');
       $state.go('home');
       // $location.path('/');

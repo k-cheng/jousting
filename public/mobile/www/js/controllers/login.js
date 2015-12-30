@@ -8,9 +8,8 @@ angular.module('app').controller('LoginCtrl', function($scope, $http, $auth, $st
       $state.go('gauntlet');
       
       var storage = $window.localStorage;
-      
-      storage.setItem('userName', res.data.user.userName);
-      storage.setItem('team', res.data.user.teams[0]);
+
+      storage.setItem('email', res.data.user.email);
       
       var message = 'Thanks for coming back ' + res.data.user + '!';
       if (!res.data.user.active)
@@ -23,7 +22,8 @@ angular.module('app').controller('LoginCtrl', function($scope, $http, $auth, $st
   $scope.authenticate = function(provider) {
     $auth.authenticate(provider).then(function(res) {
       $state.go('gauntlet');
-      //the user displayname will now be under the data object
+      var storage = $window.localStorage;
+      storage.setItem('email', res.data.user.email);
       console.log('success', 'Welcome', 'Thanks for coming back ' + res.data.user.displayName + '!');
     })
     .catch(handleError);
