@@ -44,7 +44,7 @@ exports.listAllTeams = function(req, res) {
         .sort({ createdOn: 'desc'})
         .exec(function(err, teams){
             console.log("all teams "+JSON.stringify(teams));
-            res.send({ teams: teams })
+            res.send({ teams: teams });
         });
 };
 

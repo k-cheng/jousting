@@ -7,7 +7,7 @@ exports.createUser = function(req, res) {
   req.user = req.body;
 
   var searchUser = {
-    userName: req.user.userName
+    email: req.user.email
   };
 
   User.findOne(searchUser, function(err, user) {
@@ -25,7 +25,7 @@ exports.createUser = function(req, res) {
         password:   req.user.password,
         email:      req.user.email,
         points:     0,
-        picture:    req.user.picture
+        picture:    'img/default-user.jpeg'
     });
 
     newUser.save(function(err) {
@@ -45,9 +45,9 @@ exports.listAllUsers = function(req, res) {
 };
 
 exports.getUserInfo = function(req, res) {
-    var userName = req.body.userName;
+    var email = req.body.email;
 
-    User.findOne({ userName: userName })
+    User.findOne({ email: email })
         .populate( 'teams completedChallenges' )
         .sort({ createdOn: 'desc'})
         .exec(function(err, user) {
@@ -92,10 +92,10 @@ exports.joinTeam = function(req, res) {
 };
 
 exports.leaveTeam = function(req, res) {
-    var userName = req.body.userName;
+    var email = req.body.email;
     var teamName = req.body.teamName;
 
-    User.findOne({ userName: userName })
+    User.findOne({ email: email })
         .exec(function(err, user) {
             Team.findOne({ teamName: teamName })
                 .exec(function(err, team) {
@@ -125,9 +125,9 @@ exports.leaveTeam = function(req, res) {
 };
 
 exports.listCompletedChallenges = function(req, res) {
-    var userName = req.body.userName;
+    var email = req.body.email;
 
-    User.findOne({ userName: userName })
+    User.findOne({ email: email })
         .populate( 'completedChallenges' )
         .sort({ createdOn: 'desc'})
         .exec(function(err, user) {
@@ -154,7 +154,7 @@ exports.verifyUser = function(req, res) {
   req.user = req.body;
 
   var searchUser = {
-    userName: req.user.userName
+    email: req.user.email
   };
 
   User.findOne(searchUser, function(err, user) {

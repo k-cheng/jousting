@@ -1,6 +1,6 @@
 angular.module('app').controller('JoinTeamCtrl', function($scope, $http, $state, API_URL, $window) {
     
-  var email = window.localStorage.email;
+  var email = $window.localStorage.email;
   var listOfTeams = [];
 
   $scope.team = {
