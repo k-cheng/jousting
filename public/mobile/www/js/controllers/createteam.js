@@ -1,4 +1,4 @@
-angular.module('app').controller('CreateTeamCtrl', function($scope, $http, $state, API_URL) {
+angular.module('app').controller('CreateTeamCtrl', function($scope, $http, $state, $window, API_URL) {
   
   var email = window.localStorage.email;
 
@@ -10,11 +10,14 @@ angular.module('app').controller('CreateTeamCtrl', function($scope, $http, $stat
         teamName: $scope.team.teamName
     })
     .success(function() {
-        console.log($scope.team.teamName + ' has entered the gauntlet!');
-        $state.go('roster');
+      var storage = $window.localStorage;
+      storage.setItem('team', $scope.team.teamName);
+      console.log($scope.team.teamName + ' has entered the gauntlet!');
+      $state.go('roster');
     })
     .error(function(err) {
-        console.log('Team already exists. '+err);
+      $state.go('createTeam');
+      console.log('Team already exists. '+err);
     });
   
   };

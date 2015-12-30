@@ -61,6 +61,7 @@ angular.module('app')
   })
 
   .state('roster', {
+    cache: false,
     url: '/roster',
     views: {
       'app-nav': {

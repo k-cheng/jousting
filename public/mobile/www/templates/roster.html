@@ -1,42 +1,20 @@
-<ion-view ng-controller="RosterCtrl" title="Roster">
-    <ion-content padding="'true'" class="has-header">
-    <div ng-app="app" ng-model="teamInfo.teamName">
-        <h3>{{ teamInfo.teamName }}</h3>
-        <ion-list>
-            <h4>Challengers</h4>
-            <ul>
-                <li ng-repeat="users in teamInfo.users">
-                {{ teamInfo.users[$index]['userName'] }}
-                </li>
-            </ul>
-            <!-- <ion-item menu-close="" class="item-thumbnail-left">
-                <img src="img/MZ0UDKplQGia0OkBShZS_avi.jpg">
-                <h2>Avi Samloff</h2>
-                <p>theavish</p>
-            </ion-item>
+<ion-view title="Roster">
+  <ion-content padding="'true'" class="has-header">
+    <div ng-controller="RosterCtrl" ng-model="teamInfo.teamName">
+      <h3>Team: {{ teamInfo.teamName }}</h3>
+      <ion-list>
+        <h4>Challengers</h4>
+        <ul>
+          <li ng-repeat="users in teamInfo.users">
             <ion-item menu-close="" class="item-thumbnail-left">
-                <img src="img/QonE6znSy66AXyLW3wmg_Screen Shot 2015-12-03 at 7.53.22 AM.png">
-                <h2>Jonathan Kvicky</h2>
-                <p>jonkvix</p>
+              <img ng-src="{{ teamInfo.users[$index].picture }}">
+              <h2>{{ teamInfo.users[$index].fullName }}</h2>
             </ion-item>
-            <ion-item menu-close="" class="item-thumbnail-left">
-                <img src="img/YKIpnnZUTvC5sY4aTYfo_Screen Shot 2015-12-03 at 7.54.02 AM.png">
-                <h2>Jeffery Yang</h2>
-                <p>jeffycyang</p>
-            </ion-item>
-            <ion-item menu-close="" class="item-thumbnail-left">
-                <img src="img/Q8lFct0yTF2CtsyX850Y_600232_10151149200186519_191777586_n.jpg">
-                <h2>Kevin Cheng</h2>
-                <p>k-cheng</p>
-            </ion-item>
-            <ion-item menu-close="" class="item-thumbnail-left">
-                <img src="img/z91U0MVqSb6S0LNhhLPd_Screen Shot 2015-12-03 at 7.53.52 AM.png">
-                <h2>Cory Dang</h2>
-                <p>coryd4ng</p>
-            </ion-item> -->
-        </ion-list>
-        <div class="spacer" style="height: 90px;"></div>
-        <a menu-close="" ui-sref="selfieChallenge" class="button button-stable button-block ">Selfie Challenge</a>
+          </li>
+        </ul>
+      </ion-list>
+      <div class="spacer" style="height: 90px;"></div>
+      <a menu-close="" ui-sref="selfieChallenge" class="button button-stable button-block ">Selfie Challenge</a>
     </div>
-    </ion-content>
+  </ion-content>
 </ion-view>

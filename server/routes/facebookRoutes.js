@@ -9,7 +9,7 @@ module.exports = function(req, res) {
   // need two URLS. The URL where we exchange our authorization code for the token
   var accessTokenUrl = 'https://graph.facebook.com/oauth/access_token';
   //Facebook API URL where we get profile information, and Facebook calls that the graphAPI
-  var graphApiUrl = 'https://graph.facebook.com/me';
+  var graphApiUrl = 'https://graph.facebook.com/me?fields=id,name,email,picture';
 
   var params = {
     client_id: req.body.clientId,
@@ -37,9 +37,11 @@ module.exports = function(req, res) {
                   }
 
                   var newUser = new User();
-                  console.log('test', profile);
-                  newUser.facebookId = profile.id;
-                  newUser.displayName = profile.name;
+                  // newUser.facebookId = profile.id;
+                  newUser.fullName = profile.name;
+                  newUser.email = profile.email;
+                  newUser.picture = profile.picture.data.url;
+                  
                   newUser.save(function(err) {
                     createSendToken(newUser, res);
                   }); 

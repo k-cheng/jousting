@@ -10,7 +10,6 @@ module.exports = function(user, res) {
   };
 
   var token = jwt.encode(payload, config.SECRET);
-   
   res.status(200).send({
     user: user.toJSON(),
     token: token

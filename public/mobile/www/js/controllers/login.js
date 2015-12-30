@@ -2,7 +2,7 @@ angular.module('app').controller('LoginCtrl', function($scope, $http, $auth, $st
   
   $scope.submit = function() {
     $auth.login({
-      userName: $scope.user.userName,
+      email: $scope.user.email,
       password: $scope.user.password
     }).then(function(res) {
       $state.go('gauntlet');
