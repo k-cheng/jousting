@@ -29,9 +29,6 @@ app.use(function(req, res, next) {
   next();
 });
 
-// Run Passport
-require('./server/config/passport')(app);
-
 // Routers
 var authRouter = require('./server/routes/AuthRoutes')();
 var teamRouter = require('./server/routes/teamRoutes')();
@@ -44,7 +41,6 @@ app.post('/auth/facebook', facebookRouter);
 
 // Routes
 app.use('/', authRouter, teamRouter, rosterRouter, challengeRouter);
-
 
 server.listen(8000);
 
