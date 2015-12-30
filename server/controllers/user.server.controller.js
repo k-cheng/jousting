@@ -16,7 +16,7 @@ exports.createUser = function(req, res) {
     }
 
     if(user) {
-      return res.status(401).send({message: 'Email already exists'}); //401 is unauthorized
+      return res.status(401).send({message: 'Email already exists'});
     }
 
     var newUser = new User({
@@ -163,8 +163,7 @@ exports.verifyUser = function(req, res) {
     }
 
     if(!user) {
-      //return is used to stop the rest from executing
-      return res.status(401).send({message: 'Wrong username/password'}); //401 is unauthorized
+      return res.status(401).send({message: 'Wrong username/password'}); 
     }
 
     user.comparePasswords(req.user.password, function(err, isMatch) {
