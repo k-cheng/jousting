@@ -13,27 +13,12 @@ var emailValidator = [
   ];
 
 var userSchema = new Schema({
-    fullName: { 
-        type: String,
-      trim: true,
-    required: 'Please enter your real name'
-    },
-    userName: { 
-    type: String,
-    trim: true,
-      required: 'Please enter a username',
-      index: {
-         unique: true
-        }
-  },
-    password: { 
-    type: String,
-    required: 'Please enter a password'
-    },
+    fullName: String,
+    userName: String,
+    password: String,
     email: {  
     type: String,
     trim: true,
-    required: 'Please enter an email address',
     index: {
       unique: true
       },
@@ -56,15 +41,14 @@ var userSchema = new Schema({
         ref: 'Submission'
     }],
     picture: {
-    type: String,
-    trim: true
+      type: String,
+      trim: true
     },
     createdOn: {
-    type: Date,
-    default: Date.now
+      type: Date,
+      default: Date.now
     },
     facebookId: String,
-    displayName: String
 });
 
 userSchema.methods.toJSON = function() {

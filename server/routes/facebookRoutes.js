@@ -37,11 +37,10 @@ module.exports = function(req, res) {
                   }
 
                   var newUser = new User();
-                  // newUser.facebookId = profile.id;
+                  newUser.facebookId = profile.id;
                   newUser.fullName = profile.name;
                   newUser.email = profile.email;
                   newUser.picture = profile.picture.data.url;
-                  
                   newUser.save(function(err) {
                     createSendToken(newUser, res);
                   }); 
