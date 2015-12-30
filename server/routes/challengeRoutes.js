@@ -44,8 +44,8 @@ var router = function() {
   	submissionCtrl.listUserSubmissions(req, res);
   });
 
-  challengeRouter.route('/getSubmissionInfo')
-  .post(function (req, res) {
+  challengeRouter.route('/getSubmissionInfo/:userName/:challengeName')
+  .get(function (req, res) {
     submissionCtrl.getSubmissionInfo(req, res);
   });
 

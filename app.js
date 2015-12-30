@@ -1,4 +1,4 @@
-// Packages
+	// Packages
 var express = require('express');
 var http = require('http');
 var bodyParser = require('body-parser');
@@ -18,6 +18,7 @@ mongoose.connect('mongodb://localhost:27017/jousting_db');
 // Middlewares
 app.use(express.static(__dirname + '/public/mobile/www'));
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded());
 app.use(busboyBodyParser());
 
 // Enable CORS
