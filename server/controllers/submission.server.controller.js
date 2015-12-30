@@ -3,41 +3,22 @@ var Team = require('../models/team.server.model.js');
 var Challenge = require('../models/challenge.server.model.js');
 var Submission = require('../models/submission.server.model.js');
 
-var mongoose = require('mongoose');
-var Grid = require('gridfs-stream');
-Grid.mongo = mongoose.mongo;
-
 exports.listChallengeSubmissions = function(req, res) {
 	challengeName = req.body.challengeName;
-
-	var gfs = new Grid(mongoose.connection.db);
 
 	Challenge.findOne({ challengeName: challengeName })
 		.populate( 'submissions' )
 		.sort({ createdOn: 'desc' })
 		.exec(function(err, challenge) {
 
-			gfs.files.find({ filename: challenge.submissions[0]['submission'] }).toArray(function (err,files){
-				res.writeHead(200, { 'Content-Type': files[0].contentType })
-				var readstream = gfs.createReadStream({
-					filename: files[0].filename
-				});
-				readstream.on('data', function(data){
-					res.write(data);
-				});
-				readstream.on('end', function(){
-					res.end();
-				});
-			});
+			res.send({ files: challenge.submissions });
 
 		});
 };
 
 exports.getSubmissionInfo = function(req, res) {
-	challengeName = req.body.challengeName;
-	userName = req.body.userName;
-
-	var gfs = new Grid(mongoose.connection.db);
+	challengeName = req.params.challengeName;
+	userName = req.params.userName;
 
 	Challenge.findOne({ challengeName: challengeName })
 		.exec(function(err, challenge) {
@@ -46,18 +27,13 @@ exports.getSubmissionInfo = function(req, res) {
 					Submission.findOne({ challenge: challenge._id, user: user._id })
 						.exec(function(err, submission) {
 
-							gfs.files.find({ filename: submission['submission'] }).toArray(function (err,files){
-								res.writeHead(200, { 'Content-Type': files[0].contentType })
-								var readstream = gfs.createReadStream({
-									filename: files[0].filename
-								});
-								readstream.on('data', function(data){
-									res.write(data);
-								});
-								readstream.on('end', function(){
-									res.end();
-								});
-							});							
+							// res.writeHead(200, {'Content-Type': 'image/jpeg'});
+							// res.write(new Buffer(submission['submission'],"base64"));
+							// res.end();
+
+							res.set('Content-Type', 'image/jpeg');
+							res.send(new Buffer(submission['submission'],"base64"));
+
 						});
 				});
 		});

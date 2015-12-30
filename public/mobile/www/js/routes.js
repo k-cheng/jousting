@@ -102,22 +102,11 @@ angular.module('app')
     }
   })
 
-   .state('challenges', {
+  .state('challenges', {
     url: '/challenges',
     views: {
       'app-nav': {
-        templateUrl: 'templates/challenges.html',
-        controller: 'ChallengesCtrl'
-      }
-    }
-  })
-
-  .state('selfieChallenge', {
-    url: '/selfieChallenge',
-    views: {
-      'app-nav': {
-        templateUrl: 'templates/selfieChallenge.html',
-        controller: 'ImageController'
+        templateUrl: 'templates/selfieChallenge.html'
       }
     }
   });

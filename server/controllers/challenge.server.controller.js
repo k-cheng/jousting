@@ -3,10 +3,6 @@ var Team = require('../models/team.server.model.js');
 var Challenge = require('../models/challenge.server.model.js');
 var Submission = require('../models/submission.server.model.js');
 
-var mongoose = require('mongoose');
-var Grid = require('gridfs-stream');
-Grid.mongo = mongoose.mongo;
-
 exports.createChallenge = function(req, res) {
     var points 			= req.body.points;
     var teamName 		= req.body.teamName;
@@ -46,25 +42,22 @@ exports.createChallenge = function(req, res) {
 };
 
 exports.completeChallenge = function(req, res) {
-	var userName 		= req.body.userName;
+    var userName 		= req.body.userName;
 	var challengeName 	= req.body.challengeName;
     var comment         = req.body.comment;
+    // var sub             = new Buffer(req.body.submission, 'base64');
+    var sub             = req.body.submission;
+    var contentType     = req.body.contentType;
+    console.log("server "+sub);
 
-    var gfs = new Grid(mongoose.connection.db);
-    var challengeSubmission = req.files.filefield;
-    var writeStream = gfs.createWriteStream({
-        filename: challengeSubmission.name,
-        mode: 'w',
-        content_type: challengeSubmission.mimetype
-    });
-    writeStream.on('close', function(file) {
 
 	User.findOne({ userName: userName })
 		.exec(function(err, user) {
 			Challenge.findOne({ challengeName: challengeName })
 				.exec(function(err, challenge){
                     var submission = new Submission({
-                        submission:     file.filename,
+                        submission:     sub,
+                        contentType:    contentType,
                         comment:        comment,
                         user:           user._id,
                         challenge:      challenge._id,
@@ -109,10 +102,6 @@ exports.completeChallenge = function(req, res) {
 
 				});
 		});
-
-    });
-    writeStream.write(challengeSubmission.data);
-    writeStream.end();
 
 };
 

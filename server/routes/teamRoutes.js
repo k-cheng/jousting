@@ -16,7 +16,7 @@ var router = function() {
 
   teamRouter.route('/createTeam')
   .post(function (req, res) {
-  	console.log(req.body);
+  	console.log("what the "+JSON.stringify(req.body));
   	teamCtrl.createTeam(req, res);
   });
 
