@@ -1,7 +1,6 @@
 var User = require('../models/user.server.model.js');
 var Team = require('../models/team.server.model.js');
-var moment = require('moment');
-var jwt = require('jwt-simple');
+var createSendToken = require('../services/jwt.js');
 
 exports.createUser = function(req, res) {
     
@@ -17,7 +16,7 @@ exports.createUser = function(req, res) {
     }
 
     if(user) {
-      return res.status(401).send({message: 'Email already exists'}); //401 is unauthorized
+      return res.status(401).send({message: 'Email already exists'});
     }
 
     var newUser = new User({
@@ -164,8 +163,7 @@ exports.verifyUser = function(req, res) {
     }
 
     if(!user) {
-      //return is used to stop the rest from executing
-      return res.status(401).send({message: 'Wrong username/password'}); //401 is unauthorized
+      return res.status(401).send({message: 'Wrong username/password'}); 
     }
 
     user.comparePasswords(req.user.password, function(err, isMatch) {
@@ -182,16 +180,4 @@ exports.verifyUser = function(req, res) {
 
 };
 
-function createSendToken(user, res) {
-  var payload = { 
-    sub: user.id,
-    exp: moment().add(10, 'days').unix()
-  };
 
-  var token = jwt.encode(payload, 'shhh..');
-
-  res.status(200).send({
-    user: user.toJSON(),
-    token: token
-  });
-}

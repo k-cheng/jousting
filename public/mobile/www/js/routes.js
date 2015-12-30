@@ -1,7 +1,7 @@
 angular.module('app')
 
-.config(function($stateProvider, $urlRouterProvider, $httpProvider, $authProvider, API_URL) {
-
+.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
+  
   $stateProvider
 
   .state('register', {
@@ -122,12 +122,34 @@ angular.module('app')
     }
   });
 
-  // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/');
+  $urlRouterProvider.otherwise('/');  
+})
+.config(function($authProvider, API_URL) {
+  var commonConfig = {
+    popupOptions: {
+      location: 'no',
+      toolbar: 'no',
+      width: window.screen.width,
+      height: window.screen.height
+    }
+  };
+
+  // if (ionic.Platform.isIOS() || ionic.Platform.isAndroid()) {
+  //   $authProvider.cordova = true;
+  //   commonConfig.redirectUri = 'http://localhost/';
+  // }
 
   $authProvider.loginUrl = API_URL + 'login';
+
   $authProvider.signupUrl = API_URL + 'register';
+
+  $authProvider.facebook(angular.extend({}, commonConfig, {
+    clientId: '756912801119797',
+    url: API_URL + 'auth/facebook'
+  }));
 
 })
 
 .constant('API_URL', 'http://localhost:8000/');
+
+

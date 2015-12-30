@@ -62,7 +62,9 @@ var userSchema = new Schema({
     createdOn: {
 		type: Date,
 		default: Date.now
-    }
+    },
+    facebookId: String,
+    displayName: String
 });
 
 userSchema.methods.toJSON = function() {

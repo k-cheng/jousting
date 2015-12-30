@@ -1,7 +1,6 @@
 var express = require('express');
 var authRouter = express.Router();
 
-
 var userCtrl = require('../controllers/user.server.controller');
 
 var router = function() {
