@@ -1,13 +1,9 @@
-<!-- <ion-view title="Home">
+<ion-view title="GAUNTLET">
     <ion-content padding="'true'" class="has-header">
-        <a menu-close="" href="#/create-a-team" class="button button-stable button-block ">Create A Team</a>
-        <a menu-close="" href="#/join-a-team" class="button button-stable button-block ">Join A Team</a>
-    </ion-content>
-</ion-view> -->
-<ion-view ng-controller="GauntletCtrl"  title="GAUNTLET">
-    <ion-content>
-        <a ui-sref="createTeam" class="button button-stable button-block ">Create A Team</a>
-        <a ui-sref="joinTeam" class="button button-stable button-block ">Join A Team</a>
-       <!--  <button ng-controller="LogoutCtrl" ng-click="logout()" class="button button-stable button-block ">Logout</button> -->
+      <div ng-controller="GauntletCtrl">
+        <a ng-hide="userInTeam" ui-sref="createTeam" menu-close="" class="button button-stable button-block ">Create A Team</a>
+        <a ng-hide="!userInTeam" ui-sref="roster" menu-close="" class="button button-stable button-block ">Current Team</a>
+        <a ng-hide="userInTeam" ui-sref="joinTeam" menu-close="" class="button button-stable button-block ">Join A Team</a>
+      </div>
     </ion-content>
 </ion-view>

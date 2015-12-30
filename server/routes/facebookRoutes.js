@@ -36,11 +36,14 @@ module.exports = function(req, res) {
                     return createSendToken(existingUser, res);
                   }
 
-                  var newUser = new User();
-                  newUser.facebookId = profile.id;
-                  newUser.fullName = profile.name;
-                  newUser.email = profile.email;
-                  newUser.picture = profile.picture.data.url;
+                  var newUser = new User({
+                  fullName:   profile.name,
+                  userName:   profile.name,
+                  email:      profile.email,
+                  points:     0,
+                  picture:    profile.picture.data.url
+                  });
+                  
                   newUser.save(function(err) {
                     createSendToken(newUser, res);
                   }); 

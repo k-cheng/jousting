@@ -32,6 +32,7 @@ angular.module('app')
   })
 
   .state('createTeam', {
+    cache: false,
     url: '/create-team',
     views: {
       'app-nav': {
@@ -85,10 +86,12 @@ angular.module('app')
   // })
 
   .state('gauntlet', {
+    cache: false,
     url: '/gauntlet',
     views: {
       'app-nav': {
         templateUrl: 'templates/gauntlet.html',
+        controller: 'GauntletCtrl'
       }
     }
   })

@@ -55,10 +55,10 @@ exports.getTeamInfo = function(req, res) {
         .populate( 'users createdBy challenges' )
         .sort({ createdOn: 'desc'})
         .exec(function(err, team) {
-            console.log("team "+JSON.stringify(team));
-            console.log("team leader "+JSON.stringify(team.createdBy));
-            console.log("users "+JSON.stringify(team.users));
-            console.log("challenges "+JSON.stringify(team.challenges));
+            // console.log("team "+JSON.stringify(team));
+            // console.log("team leader "+JSON.stringify(team.createdBy));
+            // console.log("users "+JSON.stringify(team.users));
+            // console.log("challenges "+JSON.stringify(team.challenges));
             res.send({ team: team });
         });
 };
@@ -105,7 +105,7 @@ exports.listUsers = function(req, res) {
         .populate( 'users' )
         .sort({ createdOn: 'desc' })
         .exec(function(err, team) {
-            console.log("team members "+JSON.stringify(team.users));
+            // console.log("team members "+JSON.stringify(team.users));
             res.send({ users: team.users });
         });
 };

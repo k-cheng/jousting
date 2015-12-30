@@ -1,6 +1,6 @@
 angular.module('app').controller('CreateTeamCtrl', function($scope, $http, $state, $window, API_URL) {
   
-  var email = window.localStorage.email;
+  var email = $window.localStorage.email;
 
   $scope.team = {teamName: '', createdBy: ''};
 

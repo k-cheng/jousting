@@ -1,11 +1,11 @@
-angular.module('app').controller('LoginCtrl', function($scope, $http, $auth, $state, $window) {
+angular.module('app').controller('LoginCtrl', function($scope, $http, $auth, $state, $location, $window) {
   
   $scope.submit = function() {
     $auth.login({
       email: $scope.user.email,
       password: $scope.user.password
     }).then(function(res) {
-      $state.go('gauntlet');
+      $location.path('gauntlet');
       
       var storage = $window.localStorage;
 
