@@ -1,12 +1,12 @@
 <ion-view title="Roster">
-  <ion-content padding="'true'" class="has-header">
+  <ion-content padding="'true'" class="has-header main-page">
     <div ng-controller="RosterCtrl" ng-model="teamInfo.teamName">
       <h3>Team: {{ teamInfo.teamName }}</h3>
       <ion-list>
         <h4>Challengers</h4>
         <ul>
           <li ng-repeat="users in teamInfo.users">
-            <ion-item menu-close="" class="item-thumbnail-left">
+            <ion-item menu-close="" class="item-thumbnail-left challenger-listing">
               <img ng-src="{{ teamInfo.users[$index].picture }}">
               <h2>{{ teamInfo.users[$index].fullName }}</h2>
             </ion-item>
@@ -14,8 +14,8 @@
         </ul>
       </ion-list>
       <div class="spacer" style="height: 90px;"></div>
-      <a menu-close="" ui-sref="app.challenges" class="button button-stable button-block ">Selfie Challenge</a>
-      <a menu-close="" ng-controller="LeaveTeamCtrl" ng-click="leaveTeam()" class="button button-stable button-block ">Leave Team</a>
+      <a menu-close="" ui-sref="app.challenges" class="button button-royal button-block ">Selfie Challenge</a>
+      <a menu-close="" ng-controller="LeaveTeamCtrl" ng-click="leaveTeam()" class="button button-royal button-block ">Leave Team</a>
     </div>
   </ion-content>
 </ion-view>

@@ -3,6 +3,7 @@ To customize the look and feel of Ionic, you can override the variables
 in ionic's _variables.scss file.
 
 For example, you might change some of the default colors:
+*/
 
 $light:                           #fff !default;
 $stable:                          #f8f8f8 !default;
@@ -11,9 +12,9 @@ $calm:                            #11c1f3 !default;
 $balanced:                        #33cd5f !default;
 $energized:                       #ffc900 !default;
 $assertive:                       #ef473a !default;
-$royal:                           #886aea !default;
-$dark:                            #444 !default;
-*/
+$royal:                           darken(#71637d, 0%) !default;
+$dark:                            #304352 !default;
+$kevin:                           #b5c6d0 !default;
 
 // The path for our ionicons font files, relative to the built CSS in www/css
 $ionicons-font-path: "../lib/ionic/fonts" !default;
@@ -46,4 +47,86 @@ ion-content.us {
 
 ion-item.trans {
   background-color: rgba(255, 255, 255, .3);
+}
+
+ion-content.main-page {
+    background: #304352; 
+    background: -webkit-linear-gradient(to top, #304352 , #d7d2cc); 
+    background: linear-gradient(to top, #304352 , #d7d2cc);
+}
+
+div#jouster {
+    border-radius: 3%;
+}
+
+button.ion-social-facebook {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+label.item.item-input {
+    background-color: rgba(255,255,255,0.8);
+}
+
+ion-item.challenger-listing {
+    background-color: rgba(230, 230, 230, 0.8);
+}
+
+.title-bar {
+    background-color: darken($kevin, 30%);
+    /*background-color: lighten($dark, 20%);*/
+}
+
+.side-menu {
+    background-color: $kevin;
+}
+
+h1 {
+    font-family: MedievalSharp;
+    font-size: 24px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 500;
+    line-height: 26.4px;
+}
+h3 {
+    font-family: MedievalSharp;
+    font-size: 14px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 500;
+    line-height: 15.4px;
+}
+p {
+    font-family: MedievalSharp;
+    font-size: 14px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 400;
+    line-height: 20px;
+}
+blockquote {
+    font-family: MedievalSharp;
+    font-size: 21px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 400;
+    line-height: 30px;
+}
+pre {
+    font-family: MedievalSharp;
+    font-size: 13px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 400;
+    line-height: 18.5714px;
+}
+span {
+    font-family: MedievalSharp;
+    font-size: 13px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 400;
+    line-height: 18.5714px;
 }
