@@ -6,8 +6,8 @@ angular.module('app')
 
   .state('app', {
     abstract: true,
-    templateUrl: 'templates/sideMenu.html',
-    controller: 'SideMenuCtrl'
+    templateUrl: 'templates/sidemenu.html',
+    controller: 'SideMenuCtrl',
   })
 
   .state('app.register', {
@@ -34,7 +34,6 @@ angular.module('app')
   })
 
   .state('app.createTeam', {
-    cache: false,
     url: '/create-team',
     views: {
       'app-nav': {
@@ -60,11 +59,13 @@ angular.module('app')
       'app-nav': {
         templateUrl: 'templates/home.html',
       }
+    },
+    resolve: {
+      redirectIfLoggedIntoHome: redirectIfLoggedIntoHome
     }
   })
 
   .state('app.roster', {
-    cache: false,
     url: '/roster',
     views: {
       'app-nav': {
@@ -75,7 +76,6 @@ angular.module('app')
   })
 
   .state('app.gauntlet', {
-    cache: false,
     url: '/gauntlet',
     views: {
       'app-nav': {
@@ -115,6 +115,36 @@ angular.module('app')
   });
 
   $urlRouterProvider.otherwise('/');  
+
+  function skipIfLoggedIn($q, $auth) {
+    var deferred = $q.defer();
+    if ($auth.isAuthenticated()) {
+      deferred.reject();
+    } else {
+      deferred.resolve();
+    }
+    return deferred.promise;
+  }
+
+  function redirectIfLoggedIntoHome($q, $location, $auth) {
+    var deferred = $q.defer();
+    if (!$auth.isAuthenticated()) {
+      deferred.resolve();
+    } else {
+       $location.path('/gauntlet');
+    }
+    return deferred.promise;
+  }
+
+  function loginRequired($q, $location, $auth) {
+    var deferred = $q.defer();
+    if ($auth.isAuthenticated()) {
+      deferred.resolve();
+    } else {
+      $location.path('/login');
+    }
+    return deferred.promise;
+  }
 })
 .config(function($authProvider, API_URL) {
   var commonConfig = {
@@ -126,10 +156,10 @@ angular.module('app')
     }
   };
 
-  // if (ionic.Platform.isIOS() || ionic.Platform.isAndroid()) {
-  //   $authProvider.cordova = true;
-  //   commonConfig.redirectUri = 'http://localhost/';
-  // }
+  if (ionic.Platform.isIOS() || ionic.Platform.isAndroid()) {
+    $authProvider.cordova = true;
+    commonConfig.redirectUri = API_URL;
+  }
 
   $authProvider.loginUrl = API_URL + 'login';
 
@@ -140,6 +170,9 @@ angular.module('app')
     url: API_URL + 'auth/facebook'
   }));
 
+})
+.config(function($ionicConfigProvider) {
+  $ionicConfigProvider.views.maxCache(0);
 })
 
 .constant('API_URL', 'http://localhost:8000/');

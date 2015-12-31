@@ -1,4 +1,7 @@
 <ion-view title="Roster">
+  <ion-nav-buttons side="left">
+    <button class="button button-icon ion-navicon-round" menu-toggle="left"></button>
+  </ion-nav-buttons>
   <ion-content padding="'true'" class="has-header main-page">
     <div ng-controller="RosterCtrl" ng-model="teamInfo.teamName">
       <h3>Team: {{ teamInfo.teamName }}</h3>

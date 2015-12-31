@@ -7,7 +7,6 @@ angular.module('app').controller('LogoutCtrl', function($scope, $auth, $state, $
       storage.removeItem('email');
       storage.removeItem('team');
       $state.go('app.home');
-      // $location.path('/');
     });
   };
 
