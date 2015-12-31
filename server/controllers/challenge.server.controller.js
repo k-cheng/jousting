@@ -42,16 +42,13 @@ exports.createChallenge = function(req, res) {
 };
 
 exports.completeChallenge = function(req, res) {
-    var userName 		= req.body.userName;
+    var email 		    = req.body.email;
 	var challengeName 	= req.body.challengeName;
     var comment         = req.body.comment;
-    // var sub             = new Buffer(req.body.submission, 'base64');
     var sub             = req.body.submission;
     var contentType     = req.body.contentType;
-    console.log("server "+sub);
 
-
-	User.findOne({ userName: userName })
+	User.findOne({ email: email })
 		.exec(function(err, user) {
 			Challenge.findOne({ challengeName: challengeName })
 				.exec(function(err, challenge){

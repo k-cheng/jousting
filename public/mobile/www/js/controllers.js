@@ -8,9 +8,9 @@ angular.module('app.controllers', ['ionic', 'ngCordova'])
 
 })
 
-.controller('ImageController', function($scope, $http, $timeout, $cordovaCamera, API_URL, $cordovaDevice, $cordovaFile, $ionicPlatform, $cordovaEmailComposer, $ionicActionSheet, ImageService, FileService) {
+.controller('ImageController', function($scope, $http, $state, $timeout, $cordovaCamera, API_URL, $cordovaDevice, $cordovaFile, $ionicPlatform, $cordovaEmailComposer, $ionicActionSheet, ImageService, FileService) {
 
-  var userName = window.localStorage.userName;
+  var email = window.localStorage.email;
 
   $scope.takePicture = function() {
     var options = {
@@ -30,12 +30,14 @@ angular.module('app.controllers', ['ionic', 'ngCordova'])
       console.log("client " + $scope.imgURI);
 
       $http.post(API_URL + 'completeChallenge', {
-          userName: userName,
+          email: email,
           challengeName: 'selfieChallenge',
           comment: 'completed',
-          // submission: $scope.imgURI,
           submission: imageData,
           contentType: 'image/jpeg'
+        })
+        .success(function(){    
+          $state.go('app.submissions');   
         })
         .error(function(err) {
           console.log('Already sumitted challenge. ' + err);
