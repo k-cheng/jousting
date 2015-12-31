@@ -5,14 +5,14 @@ angular.module('app').controller('LoginCtrl', function($scope, $http, $auth, $st
       email: $scope.user.email,
       password: $scope.user.password
     }).then(function(res) {
-      $ionicPopup.alert({
-        title: 'Success',
-        content: 'You have successfully logged in!'
+        var storage = $window.localStorage;
+        storage.setItem('email', res.data.user.email);
+        $state.go('app.gauntlet');
       })
       .then(function(res) {
-        $state.go('app.gauntlet');
-        var storage = $window.localStorage;
-        storage.setItem('email', res.data.user.email); 
+        $ionicPopup.alert({
+        title: 'Success',
+        content: 'You have successfully logged in!' 
       });
     })
     .catch(handleError);
@@ -20,14 +20,14 @@ angular.module('app').controller('LoginCtrl', function($scope, $http, $auth, $st
 
   $scope.authenticate = function(provider) {
     $auth.authenticate(provider).then(function(res) {
+      var storage = $window.localStorage;
+      storage.setItem('email', res.data.user.email);
+      $state.go('app.gauntlet');
+    })
+    .then(function(res) {
       $ionicPopup.alert({
         title: 'Success',
         content: 'You have successfully logged in!'
-      })
-      .then(function(res) {
-        $state.go('app.gauntlet');
-        var storage = $window.localStorage;
-        storage.setItem('email', res.data.user.email);
       });
     })
     .catch(handleError);
