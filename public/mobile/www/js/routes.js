@@ -74,19 +74,6 @@ angular.module('app')
     }
   })
 
-  // .state('selfieChallenge', {
-  //   url: '/selfie-challenge',
-  //   resolve: {
-  //     loggedin: checkLoggedin
-  //   },
-  //   views: {
-  //     'app-nav': {
-  //       templateUrl: 'templates/selfieChallenge.html',
-  //       controller: 'challengeCtrl'
-  //     }
-  //   }
-  // })
-
   .state('app.gauntlet', {
     cache: false,
     url: '/gauntlet',
@@ -146,5 +133,3 @@ angular.module('app')
 })
 
 .constant('API_URL', 'http://localhost:8000/');
-
-
