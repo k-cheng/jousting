@@ -1,5 +1,6 @@
 angular.module('app').controller('LeaveTeamCtrl', function($scope, $http, $state, $window, API_URL) {
 
+  
   $scope.leaveTeam = function() {
 
     $http.post(API_URL + 'leaveTeam', {

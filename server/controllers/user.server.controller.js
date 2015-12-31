@@ -66,14 +66,12 @@ exports.joinTeam = function(req, res) {
         .exec(function(err, user){
             Team.findOne({ teamName: teamName })
                 .exec(function(err, team){
-                    console.log('baby, team');
                     if (err) {
                         return res.sendStatus(500);
                     }
                     if (!team) {
                         return res.sendStatus(500);
                     } else {
-
                         team.users.addToSet(user._id);
                         user.teams.addToSet(team._id);
                         team.save(function(err) {
@@ -115,6 +113,7 @@ exports.leaveTeam = function(req, res) {
                     } else {
                         user.teams.pull( team._id );
                         team.users.pull( user._id );
+                      
                         team.save(function(err) {
                             if (err) {
                                 var errMsg = 'Sorry, there was an error leaving the team ' + err;
