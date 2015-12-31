@@ -1,7 +1,6 @@
 angular.module('app').controller('RegisterCtrl', function($scope, $auth, $state, $window) {
 
 $scope.submit = function () {
-  console.log($scope.user);
 
     $auth.signup({
       fullName: $scope.user.fullName,

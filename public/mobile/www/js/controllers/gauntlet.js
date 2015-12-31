@@ -9,7 +9,6 @@ angular.module('app').controller('GauntletCtrl', function($scope, $http, API_URL
     $scope.userInTeam = !!team['teams'][0].teamName;
   });
 
-
 });
  
 
