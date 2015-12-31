@@ -1,13 +1,13 @@
 angular.module('app')
 
-.config(function($stateProvider, $urlRouterProvider, $authProvider) {
+.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
   
   $stateProvider
 
   .state('app', {
     abstract: true,
     templateUrl: 'templates/sideMenu.html',
-    controller: 'SideMenuCtrl',
+    controller: 'SideMenuCtrl'
   })
 
   .state('app.register', {
@@ -17,9 +17,6 @@ angular.module('app')
         templateUrl: 'templates/register.html',
         controller: 'RegisterCtrl'
       }
-    },
-    resolve: {
-      skipIfLoggedIn: skipIfLoggedIn
     }
   })
 
@@ -29,9 +26,6 @@ angular.module('app')
       'app-nav': {
         templateUrl: 'templates/login.html'
       }
-    },
-    resolve: {
-      skipIfLoggedIn: skipIfLoggedIn
     }
   })
 
@@ -47,9 +41,6 @@ angular.module('app')
         templateUrl: 'templates/createteam.html',
         controller: 'CreateTeamCtrl'
       }
-    },
-    resolve: {
-      loginRequired: loginRequired
     }
   })
 
@@ -60,9 +51,6 @@ angular.module('app')
         templateUrl: 'templates/jointeam.html',
         controller: 'JoinTeamCtrl'
       }
-    },
-    resolve: {
-      loginRequired: loginRequired
     }
   })
 
@@ -83,9 +71,6 @@ angular.module('app')
         templateUrl: 'templates/roster.html',
         controller: 'RosterCtrl'
       }
-    },
-    resolve: {
-      loginRequired: loginRequired
     }
   })
 
@@ -97,9 +82,6 @@ angular.module('app')
         templateUrl: 'templates/gauntlet.html',
         controller: 'GauntletCtrl'
       }
-    },
-    resolve: {
-      loginRequired: loginRequired
     }
   })
 
@@ -110,9 +92,6 @@ angular.module('app')
         templateUrl: 'templates/theteam.html',
         controller: 'theTeamCtrl'
       }
-    },
-    resolve: {
-      loginRequired: loginRequired
     }
   })
 
@@ -123,9 +102,6 @@ angular.module('app')
         templateUrl: 'templates/submissions.html',
         controller: 'SubmissionCtrl'
       }
-    },
-    resolve: {
-      loginRequired: loginRequired
     }
   })
 
@@ -135,33 +111,10 @@ angular.module('app')
       'app-nav': {
         templateUrl: 'templates/selfiechallenge.html'
       }
-    },
-    resolve: {
-      loginRequired: loginRequired
     }
   });
 
   $urlRouterProvider.otherwise('/');  
-
-  function skipIfLoggedIn($q, $auth) {
-    var deferred = $q.defer();
-    if ($auth.isAuthenticated()) {
-      deferred.reject();
-    } else {
-      deferred.resolve();
-    }
-    return deferred.promise;
-  }
-
-  function loginRequired($q, $location, $auth) {
-    var deferred = $q.defer();
-    if ($auth.isAuthenticated()) {
-      deferred.resolve();
-    } else {
-      $location.path('/login');
-    }
-    return deferred.promise;
-  }
 })
 .config(function($authProvider, API_URL) {
   var commonConfig = {
@@ -173,10 +126,10 @@ angular.module('app')
     }
   };
 
-  if (ionic.Platform.isIOS() || ionic.Platform.isAndroid()) {
-    $authProvider.cordova = true;
-    commonConfig.redirectUri = API_URL;
-  }
+  // if (ionic.Platform.isIOS() || ionic.Platform.isAndroid()) {
+  //   $authProvider.cordova = true;
+  //   commonConfig.redirectUri = 'http://localhost/';
+  // }
 
   $authProvider.loginUrl = API_URL + 'login';
 
