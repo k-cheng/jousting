@@ -25,7 +25,7 @@ $scope.joinTeam = function() {
     .success(function() {
       var storage = $window.localStorage;
       storage.setItem('team', $scope.team.teamName);
-      $state.go('roster');
+      $state.go('app.roster');
     })
     .error(function(err) {
       console.log('NOT A REAL TEAM!' + err);

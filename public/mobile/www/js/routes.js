@@ -4,16 +4,23 @@ angular.module('app')
   
   $stateProvider
 
-  .state('register', {
+  .state('app', {
+    abstract: true,
+    templateUrl: 'templates/sideMenu.html',
+    controller: 'SideMenuCtrl'
+  })
+
+  .state('app.register', {
     url: '/register',
     views: {
       'app-nav': {
         templateUrl: 'templates/register.html',
+        controller: 'RegisterCtrl'
       }
     }
   })
 
-  .state('login', {
+  .state('app.login', {
     url: '/login',
     views: {
       'app-nav': {
@@ -22,16 +29,12 @@ angular.module('app')
     }
   })
 
-  .state('logout', {
+  .state('app.logout', {
     url: '/logout'
-    // views: {
-    //   'app-nav': {
-    //     templateUrl: 'templates/home.html',
-    //   }
-    // }
   })
 
-  .state('createTeam', {
+  .state('app.createTeam', {
+    cache: false,
     url: '/create-team',
     views: {
       'app-nav': {
@@ -41,7 +44,7 @@ angular.module('app')
     }
   })
 
-  .state('joinTeam', {
+  .state('app.joinTeam', {
     url: '/join-team',
     views: {
       'app-nav': {
@@ -51,7 +54,7 @@ angular.module('app')
     }
   })
 
-  .state('home', {
+  .state('app.home', {
     url: '/',
     views: {
       'app-nav': {
@@ -60,7 +63,7 @@ angular.module('app')
     }
   })
 
-  .state('roster', {
+  .state('app.roster', {
     cache: false,
     url: '/roster',
     views: {
@@ -84,16 +87,18 @@ angular.module('app')
   //   }
   // })
 
-  .state('gauntlet', {
+  .state('app.gauntlet', {
+    cache: false,
     url: '/gauntlet',
     views: {
       'app-nav': {
         templateUrl: 'templates/gauntlet.html',
+        controller: 'GauntletCtrl'
       }
     }
   })
 
-  .state('theTeam', {
+  .state('app.theTeam', {
     url: '/the-team',
     views: {
       'app-nav': {
@@ -103,7 +108,7 @@ angular.module('app')
     }
   })
 
-  .state('challenges', {
+  .state('app.challenges', {
     url: '/challenges',
     views: {
       'app-nav': {

@@ -1,10 +1,14 @@
-angular.module('app').controller('GauntletCtrl', function($scope, $http, API_URL, $state, $location, $auth) {
+angular.module('app').controller('GauntletCtrl', function($scope, $http, API_URL, $state, $location, $window) {
 
-  $http.get(API_URL + 'gauntlet').success(function (res) {
-    // $state.go('gauntlet');
-  }).error(function (err) {
-    $state.go('home');
+  var email = $window.localStorage.email;
+
+  $http.post(API_URL + 'getTeamName', {
+    email: email
+  })
+  .success(function(team) {
+    $scope.userInTeam = !!team['teams'][0].teamName;
   });
+
 
 });
  
