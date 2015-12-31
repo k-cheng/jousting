@@ -5,7 +5,11 @@
             <div id="jouster"></div>
             <span class="welcome"><strong>Compete for Victory</strong></span>
             <span class="bold-text big-text"> - With friends, against friends.</span>
+            <audio autoplay src="img/trumpets.webm" onended="neverPlayAgain()"></audio>
             <style>
+            audio {
+                display: none;
+            }
             div#jouster {
                 width: 100%;
             }
@@ -26,6 +30,11 @@
                 ​
             }
             </style>
+            <script type="text/javascript">
+            function neverPlayAgain() {
+                
+            }
+            </script>
         </div>
         <a ui-sref="app.login" class="button button-royal button-block ">Account Login</a>
         <a ui-sref="app.register" class="button button-royal button-block ">Register an Account</a>
