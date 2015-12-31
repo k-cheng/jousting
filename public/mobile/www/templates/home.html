@@ -1,33 +1,33 @@
 <ion-view title="JOUSTING">
-    <ion-content padding="'true'" class="has-header">
+    <ion-content padding="'true'" class="has-header main-page">
         <div class="title">
-            <span class="welcome"><strong>Compete for Victory</strong></span>
-            <span class="bold-text big-text"> -<u>With Friends</u>, <u>Against Friends</u>.</span>
             <!--joust header image-->
-            <div id="divID"></div>
+            <div id="jouster"></div>
+            <span class="welcome"><strong>Compete for Victory</strong></span>
+            <span class="bold-text big-text"> - With friends, against friends.</span>
             <style>
-
-                div#divID {
-                    width:100%;
+            div#jouster {
+                width: 100%;
+            }
+            
+            @media all and (orientation:portrait) {
+                /* Styles for Portrait screen */
+                div#jouster {
+                    content: url(../img/joust-single.png);
                 }
-
-                @media all and (orientation:portrait) {
-                /* Styles for Portrait screen */   
-                    div#divID {
-                        content:url(../img/joust-single.png);
-                    }​
-                }
-
-                @media all and (orientation:landscape) {
+                ​
+            }
+            
+            @media all and (orientation:landscape) {
                 /* Styles for Landscape screen */
-                    div#divID {
-                        content:url(../img/joust-double.jpg);
-                    }​
+                div#jouster {
+                    content: url(../img/joust-double.jpg);
                 }
-
+                ​
+            }
             </style>
         </div>
-        <a ui-sref="app.login" class="button button-stable button-block ">Account Login</a>
-        <a ui-sref="app.register" class="button button-stable button-block ">Register an Account</a>
+        <a ui-sref="app.login" class="button button-royal button-block ">Account Login</a>
+        <a ui-sref="app.register" class="button button-royal button-block ">Register an Account</a>
     </ion-content>
 </ion-view>

@@ -1,13 +1,12 @@
 <ion-view ng-controller="JoinTeamCtrl" title="Join A Team">
-    <ion-content padding="'true'" class="has-header">
+    <ion-content padding="'true'" class="has-header main-page">
     <div ng-app="app">
         <form class="list" ng-submit="joinTeam()">
             <label class="item item-input" name="Team Name">
                 <input type="text" placeholder="Team Name" ng-model="team.teamName">
                 {{ team.teamName }}
             </label>
-            <div class="spacer" style="height: 100px;"></div>
-            <input menu-close="" type="submit" value="Done" class="button button-stable button-block " />
+            <input menu-close="" type="submit" value="Done" class="button button-royal button-block " />
         </form>
     </div>
     </ion-content>

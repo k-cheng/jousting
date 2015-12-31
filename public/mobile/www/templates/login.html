@@ -1,5 +1,5 @@
 <ion-view title="Login">
-    <ion-content padding="'true'" class="has-header">
+    <ion-content padding="'true'" class="has-header main-page">
         <div ng-controller="LoginCtrl">
             <form  ng-submit="submit()" name="login" class="list" novalidate>
                 <ion-list>
@@ -10,12 +10,12 @@
                         <input name="password" ng-model="user.password" type="password" placeholder="Password" required/>
                     </label>
                 </ion-list>
-                <button ng-disabled="login.$invalid" type="submit" class="button button-stable button-block">Login</button>
-                <a class="button button-stable button-block" ui-sref="app.register">Register</a>
-                <label class="item">
-                    <button ng-click="authenticate('facebook')" class="button button-block button-positive">
+                <button ng-disabled="login.$invalid" type="submit" class="button button-royal button-block">Login</button>
+                <a class="button button-royal button-block" ui-sref="app.register">Register</a>
+                <!-- <label class="item"> -->
+                    <button ng-click="authenticate('facebook')" class="button button-block icon-left ion-social-facebook button-positive">
                     Login with Facebook</button>
-                </label>
+                <!-- </label> -->
             </form>
         </div>
     </ion-content>
