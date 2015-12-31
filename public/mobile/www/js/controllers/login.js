@@ -5,7 +5,7 @@ angular.module('app').controller('LoginCtrl', function($scope, $http, $auth, $st
       email: $scope.user.email,
       password: $scope.user.password
     }).then(function(res) {
-      $location.path('gauntlet');
+      $location.path('app.gauntlet');
       
       var storage = $window.localStorage;
 
@@ -21,7 +21,7 @@ angular.module('app').controller('LoginCtrl', function($scope, $http, $auth, $st
 
   $scope.authenticate = function(provider) {
     $auth.authenticate(provider).then(function(res) {
-      $state.go('gauntlet');
+      $state.go('app.gauntlet');
       var storage = $window.localStorage;
       storage.setItem('email', res.data.user.email);
       console.log('success', 'Welcome', 'Thanks for coming back ' + res.data.user.displayName + '!');

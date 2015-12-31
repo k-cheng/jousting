@@ -36,8 +36,8 @@
   <script src="js/controllers/jointeam.js"></script>
   <script src="js/controllers/roster.js"></script>
   <script src="js/controllers/challenges.js"></script>
+  <script src="js/controllers/sideMenu.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.7/socket.io.js"></script>
-
   <script type="text/javascript">
     var socket = io.connect();
       console.log('socket', socket)
@@ -49,58 +49,9 @@
             alert(challenge);
            });
          });
-      // });
   </script>
 </head>
-
 <body ng-app="app" animation="slide-left-right-ios7">
-  <ion-nav-view>
-    <ion-side-menus>
-      <ion-side-menu side="left">
-
-        <div class="list" ng-controller="LogoutCtrl">
-
-          <a menu-close="" class="item item-icon-left" ui-sref="gauntlet">
-            <i class="icon ion-home"></i> Home
-          </a>
-
-          <a menu-close="" class="item item-icon-left" ui-sref="challenges">
-            <i class="icon ion-social-buffer"></i> Challenges
-          </a>
-
-          <a menu-close="" class="item item-icon-left" ui-sref="roster">
-            <i class="icon ion-ios-people"></i> Team Roster
-          </a>
-
-          <a menu-close="" class="item item-icon-left" ui-sref="createTeam">
-            <i class="icon ion-person-add"></i> Create A Team
-          </a>
-
-          <a menu-close="" class="item item-icon-left" ui-sref="join-a-team">
-            <i class="icon ion-person-stalker"></i> Join A Team
-          </a>
-
-          <a menu-close="" ng-click="logout()" class="item item-icon-left">
-            <i class="icon ion-log-out"></i> Log Out
-          </a>
-
-        </div>
-
-      </ion-side-menu>
-
-      <ion-side-menu-content class="sideNav" drag-content="false">
-        <ion-nav-bar class="nav-title-slide-ios7 bar-custom">
-          <ion-nav-buttons side="left">
-            <button class="button button-icon ion-navicon-round" menu-toggle="left"></button>
-          </ion-nav-buttons>
-          <!-- after ion-nav-buttons -->
-        </ion-nav-bar>
-        <!-- after ion-nav-bar -->
-        <!-- main view controller -->
-        <ion-nav-view name="app-nav"></ion-nav-view>
-      </ion-side-menu-content>
-    </ion-side-menus>
-  </ion-nav-view>
+  <ion-nav-view></ion-nav-view>
 </body>
-
 </html>

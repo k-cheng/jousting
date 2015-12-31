@@ -1,6 +1,6 @@
-<ion-view ng-controller="CreateTeamCtrl"title="Create A Team">
+<ion-view title="Create A Team">
     <ion-content padding="'true'" class="has-header">
-    <div>
+    <div= ng-controller="CreateTeamCtrl">
         <form class="list" ng-submit="createTeam()">
             <label class="item item-input" name="teamname">
                 <input type="text" placeholder="Team Name" ng-model="team.teamName">
