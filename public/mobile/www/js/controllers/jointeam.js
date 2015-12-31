@@ -23,8 +23,6 @@ $scope.joinTeam = function() {
       teamName: $scope.team.teamName
     })
     .success(function() {
-      var storage = $window.localStorage;
-      storage.setItem('team', $scope.team.teamName);
       $state.go('app.roster');
     })
     .error(function(err) {

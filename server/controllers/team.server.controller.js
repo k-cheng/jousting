@@ -66,11 +66,11 @@ exports.getTeamInfo = function(req, res) {
 
 exports.removeUser = function(req, res) {
     var teamName = req.body.teamName;
-    var userName = req.body.userName;
+    var email = req.body.email;
     
     Team.findOne({ teamName: teamName })
         .exec(function(err, team) {
-            User.findOne({ userName: userName })
+            User.findOne({ email: email })
                 .exec(function(err, user) {
                     team.users.pull( user._id );
                     user.teams.pull( team._id );

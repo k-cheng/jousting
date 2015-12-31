@@ -38,7 +38,7 @@ angular.module('app')
     url: '/create-team',
     views: {
       'app-nav': {
-        templateUrl: 'templates/createTeam.html',
+        templateUrl: 'templates/createteam.html',
         controller: 'CreateTeamCtrl'
       }
     }
@@ -48,7 +48,7 @@ angular.module('app')
     url: '/join-team',
     views: {
       'app-nav': {
-        templateUrl: 'templates/joinTeam.html',
+        templateUrl: 'templates/jointeam.html',
         controller: 'JoinTeamCtrl'
       }
     }
@@ -89,7 +89,7 @@ angular.module('app')
     url: '/the-team',
     views: {
       'app-nav': {
-        templateUrl: 'templates/theTeam.html',
+        templateUrl: 'templates/theteam.html',
         controller: 'theTeamCtrl'
       }
     }
@@ -109,7 +109,7 @@ angular.module('app')
     url: '/challenges',
     views: {
       'app-nav': {
-        templateUrl: 'templates/selfieChallenge.html'
+        templateUrl: 'templates/selfiechallenge.html'
       }
     }
   });

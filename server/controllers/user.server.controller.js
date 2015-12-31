@@ -66,29 +66,36 @@ exports.joinTeam = function(req, res) {
         .exec(function(err, user){
             Team.findOne({ teamName: teamName })
                 .exec(function(err, team){
-                    team.users.addToSet(user._id);
-                    user.teams.addToSet(team._id);
+                    if (err) {
+                        return res.sendStatus(500);
+                    }
+                    if (!team) {
+                        return res.sendStatus(500);
+                    } else {
 
-                    team.save(function(err) {
-                        if (err) {
-                            var errMsg = 'Sorry, there was an error adding user to team ' + err;
-                            console.log(errMsg);
-                            res.sendStatus(500);
-                        } else {
-                            user.save(function(err) {
-                                if (err) {
-                                    var errMsg = 'Sorry, there was an error adding team to users teams ' + err;
-                                    console.log(errMsg);
-                                    res.sendStatus(500);
-                                } else {
-                                    console.log('Team joined!');
-                                    res.sendStatus(200);
-                                }
-                            });
-                        }
+                        team.users.addToSet(user._id);
+                        user.teams.addToSet(team._id);
+                        team.save(function(err) {
+                            if (err) {
+                                var errMsg = 'Sorry, there was an error adding user to team ' + err;
+                                console.log(errMsg);
+                                res.sendStatus(500);
+                            } else {
+                                user.save(function(err) {
+                                    if (err) {
+                                        var errMsg = 'Sorry, there was an error adding team to users teams ' + err;
+                                        console.log(errMsg);
+                                        res.sendStatus(500);
+                                    } else {
+                                        console.log('Team joined!');
+                                        res.sendStatus(200);
+                                    }
+                                });
+                            }
                     });
-                });
+                }
         });
+});
 };
 
 exports.leaveTeam = function(req, res) {
