@@ -66,6 +66,7 @@ exports.joinTeam = function(req, res) {
         .exec(function(err, user){
             Team.findOne({ teamName: teamName })
                 .exec(function(err, team){
+                    console.log('baby, team');
                     if (err) {
                         return res.sendStatus(500);
                     }
@@ -106,28 +107,33 @@ exports.leaveTeam = function(req, res) {
         .exec(function(err, user) {
             Team.findOne({ teamName: teamName })
                 .exec(function(err, team) {
-                    user.teams.pull( team._id );
-                    team.users.pull( user._id );
-
-                    team.save(function(err) {
-                        if (err) {
-                            var errMsg = 'Sorry, there was an error leaving the team ' + err;
-                            console.log(errMsg);
-                            res.sendStatus(500);
-                        } else {
-                            user.save(function(err) {
-                                if (err) {
-                                    var errMsg = 'Sorry, there was an error leaving the team ' + err;
-                                    console.log(errMsg);
-                                    res.sendStatus(500);
-                                } else {
-                                    console.log('Team left!');
-                                    res.sendStatus(200);
-                                }
-                            });    
-                        }
-                    });
-                });
+                    if (err) {
+                        return res.sendStatus(500);
+                    }
+                    if (!team) {
+                        return res.sendStatus(500);
+                    } else {
+                        user.teams.pull( team._id );
+                        team.users.pull( user._id );
+                        team.save(function(err) {
+                            if (err) {
+                                var errMsg = 'Sorry, there was an error leaving the team ' + err;
+                                console.log(errMsg);
+                                res.sendStatus(500);
+                            } else {
+                                user.save(function(err) {
+                                    if (err) {
+                                        var errMsg = 'Sorry, there was an error leaving the team ' + err;
+                                        console.log(errMsg);
+                                        res.sendStatus(500);
+                                    } else {
+                                        console.log('Team left!');
+                                        res.sendStatus(200);
+                                    }
+                                });    
+                            }
+                        });
+                    }});
         });
 };
 
@@ -140,7 +146,7 @@ exports.listCompletedChallenges = function(req, res) {
         .exec(function(err, user) {
             console.log('completed challenges'+user.completedChallenges);
             res.send({ completedChallenges: user.completedChallenges });
-        })
+        });
 };
 
 //not really necessary, functionality covered by getUserInfo
@@ -151,8 +157,14 @@ exports.listTeams = function(req, res) {
         .populate( 'teams' )
         .sort({ createdOn: 'desc'})
         .exec(function(err, user) {
-            console.log("teams "+user.teams);
-            res.send({ teams: user.teams });
+            if (err) {
+                return res.sendStatus(500);
+            }
+            if (!user) {
+                return res.sendStatus(500);
+            } else {    
+                res.send({ teams: user.teams });
+            }
         });
 };
 
