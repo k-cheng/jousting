@@ -95,6 +95,16 @@ angular.module('app')
     }
   })
 
+  .state('submissions', {
+    url: '/submissions',
+    views: {
+      'app-nav': {
+        templateUrl: 'templates/submissions.html',
+        controller: 'SubmissionCtrl'
+      }
+    }
+  })
+
   .state('app.challenges', {
     url: '/challenges',
     views: {

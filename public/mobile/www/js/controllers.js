@@ -8,9 +8,9 @@ angular.module('app.controllers', ['ionic', 'ngCordova'])
 
 })
 
-.controller('ImageController', function($scope, $http, $timeout, $cordovaCamera, API_URL, $cordovaDevice, $cordovaFile, $ionicPlatform, $cordovaEmailComposer, $ionicActionSheet, ImageService, FileService) {
-
-  var userName = window.localStorage.userName;
+.controller('ImageController', function($scope, $http, $state, $timeout, $cordovaCamera, API_URL, $cordovaDevice, $cordovaFile, $ionicPlatform, $cordovaEmailComposer, $ionicActionSheet, ImageService, FileService) {
+ 
+  var email = window.localStorage.email;
 
   $scope.takePicture = function() {
     var options = {
@@ -26,16 +26,19 @@ angular.module('app.controllers', ['ionic', 'ngCordova'])
     };
 
     $cordovaCamera.getPicture(options).then(function(imageData) {
-      $scope.imgURI = 'data:image/jpeg;base64,' + imageData;
-      console.log("client " + $scope.imgURI);
+        $scope.imgURI = 'data:image/jpeg;base64,' + imageData;
+        console.log("client "+$scope.imgURI);
 
-      $http.post(API_URL + 'completeChallenge', {
-          userName: userName,
-          challengeName: 'selfieChallenge',
-          comment: 'completed',
-          // submission: $scope.imgURI,
-          submission: imageData,
-          contentType: 'image/jpeg'
+        $http.post(API_URL + 'completeChallenge', {
+            email: email,
+            challengeName: 'selfieChallenge',
+            comment: 'completed',
+            // submission: $scope.imgURI,
+            submission: imageData,
+            contentType: 'image/jpeg'
+        })
+        .success(function(){
+          $state.go('submissions');
         })
         .error(function(err) {
           console.log('Already sumitted challenge. ' + err);

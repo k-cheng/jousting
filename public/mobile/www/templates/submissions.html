@@ -1,0 +1,19 @@
+<ion-view ng-controller="SubmissionCtrl" title="Submissions">
+    <ion-content padding="'true'" class="has-header">
+    <div ng-app="app">
+        <h3>{{ challengesInTeam }}</h3>
+        <ion-list>
+            <h4>Submissions</h4>
+            <!-- <ul>
+                <li ng-repeat="img in imgURL">
+                    <img ng-src="{{img}}"/>
+                </li>
+            </ul> -->
+            <!-- <img ng-repeat="users in teamInfo.users" ng-src="getSubmissionInfo/{{teamInfo.users[$index]['userName']}}/{{challengesInTeam}}"/> -->
+            <img ng-repeat="img in imgURL" ng-src="{{img}}"/>
+        </ion-list>
+        <div class="spacer" style="height: 90px;"></div>
+        <a menu-close="" ui-sref="selfieChallenge" class="button button-stable button-block ">Selfie Challenge</a>
+    </div>
+    </ion-content>
+</ion-view>
