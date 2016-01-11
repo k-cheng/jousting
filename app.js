@@ -31,7 +31,7 @@ app.use(function(req, res, next) {
 });
 
 // Routers
-var authRouter = require('./server/routes/AuthRoutes')();
+var authRouter = require('./server/routes/authRoutes')();
 var teamRouter = require('./server/routes/teamRoutes')();
 var rosterRouter = require('./server/routes/rosterRoutes')();
 var challengeRouter = require('./server/routes/challengeRoutes')();

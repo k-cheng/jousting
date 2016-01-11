@@ -9,11 +9,6 @@ var submissionCtrl = require('../controllers/submission.server.controller');
 
 var router = function() {
 
-  // challengeRouter.route('/getTeamName')
-  // .post(function (req, res) {
-  // 	userCtrl.listTeams(req, res);
-  // });
-
   challengeRouter.route('/createChallenge')
   .post(function (req, res) {
   	challengeCtrl.createChallenge(req, res);
@@ -34,12 +29,12 @@ var router = function() {
     challengeCtrl.getChallengeInfo(req, res);
   });
 
-  challengeRouter.route('listChallengeSubmissions')
+  challengeRouter.route('/listChallengeSubmissions')
   .post(function (req,res) {
   	submissionCtrl.listChallengeSubmissions(req, res);
   });
 
-  challengeRouter.route('listUserSubmissions')
+  challengeRouter.route('/listUserSubmissions')
   .post(function (req,res) {
   	submissionCtrl.listUserSubmissions(req, res);
   });

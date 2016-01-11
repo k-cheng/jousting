@@ -11,7 +11,13 @@ exports.listChallengeSubmissions = function(req, res) {
 		.sort({ createdOn: 'desc' })
 		.exec(function(err, challenge) {
 
-			res.send({ files: challenge.submissions });
+			var images = {}
+
+			for(var i = 0 ; i < challenge.submissions.length ; i++){
+				images[i.toString()] = challenge.submissions[i]['submission'];
+			}
+
+			res.send(images);
 
 		});
 };

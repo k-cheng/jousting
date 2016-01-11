@@ -1,5 +1,6 @@
-angular.module('app').controller('SubmissionCtrl', function($scope, $http, API_URL, $window) {
+angular.module('app').controller('SubmissionCtrl', function($scope, $state, $http, API_URL, $window) {
     
+  $scope.imgURL = [];
   var email = window.localStorage.email;
   console.log("email "+email);
   
@@ -11,8 +12,6 @@ angular.module('app').controller('SubmissionCtrl', function($scope, $http, API_U
   var usersInTeam;
   $scope.challengesInTeam;
 
-  $scope.imgURL = [];
- 
   $http.post(API_URL + 'getTeamName', {
     email: email
   })
@@ -27,27 +26,12 @@ angular.module('app').controller('SubmissionCtrl', function($scope, $http, API_U
         console.log('cory', users);
         usersInTeam = users["users"];
         $scope.teamInfo.users = usersInTeam;
-
         console.log(JSON.stringify($scope.teamInfo.users));
 
-        $http.post(API_URL + 'listTeamChallenges', {
-          teamName: teamUserIsIn
-        })
-        .success(function(challenges) {
-          console.log('challenges ', challenges);
-          $scope.challengesInTeam = challenges['challenges'][0]['challengeName'];
-
-          for(var i = 0 ; i < usersInTeam.length ; i++){
-            console.log(usersInTeam[i]['userName']);
-            $scope.imgURL.push(API_URL + 'getSubmissionInfo/' + usersInTeam[i]['userName'] + '/' + challenges['challenges'][0]['challengeName']);
-          }
-
-          console.log($scope.imgURL);
-
-        })
-        .error(function(err) {
-          console.log('Could not retrieve challenge list ' + err);
-        });
+        for(var i = 0 ; i < usersInTeam.length ; i++){
+          console.log(usersInTeam[i]['userName']);
+          $scope.imgURL.push(API_URL + 'getSubmissionInfo/' + usersInTeam[i]['userName'] + '/selfieChallenge');
+        }
 
       })
       .error(function(err) {

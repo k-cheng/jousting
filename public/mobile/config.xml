@@ -7,8 +7,9 @@
   <author email="avi.samloff@gmail.com" href="http://github.com/RickyAndTheWalkers/jousting/">
       Ricky And The Walkers
     </author>
-  <content src="index.html"/>
   <access origin="*"/>
+  <allow-navigation href="*"/>
+  <content src="index.html"/>
   <preference name="webviewbounce" value="false"/>
   <preference name="UIWebViewBounce" value="false"/>
   <preference name="DisallowOverscroll" value="true"/>

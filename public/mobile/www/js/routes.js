@@ -99,14 +99,22 @@ angular.module('app')
     url: '/submissions',
     views: {
       'app-nav': {
-        templateUrl: 'templates/submissions.html',
-        controller: 'SubmissionCtrl'
+        templateUrl: 'templates/submissions.html'
       }
     }
   })
 
-  .state('app.challenges', {
-    url: '/challenges',
+  .state('app.shakeChallenge', {
+    url: '/shakechallenge',
+    views: {
+      'app-nav': {
+        templateUrl: 'templates/shakechallenge.html'
+      }
+    }
+  }) 
+
+  .state('app.selfieChallenge', {
+    url: '/selfiechallenge',
     views: {
       'app-nav': {
         templateUrl: 'templates/selfiechallenge.html'

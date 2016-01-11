@@ -11,8 +11,12 @@
                     <img ng-src="{{img}}"/>
                 </li>
             </ul> -->
+
             <!-- <img ng-repeat="users in teamInfo.users" ng-src="getSubmissionInfo/{{teamInfo.users[$index]['userName']}}/{{challengesInTeam}}"/> -->
-            <img ng-repeat="img in imgURL" ng-src="{{img}}"/>
+
+            <ion-scroll direction="x" style="height:200px; min-height: 200px; overflow: scroll; white-space: nowrap;">
+                <img ng-repeat="img in imgURL" ng-src="{{img}}"/>
+            </ion-scroll>
         </ion-list>
         <div class="spacer" style="height: 90px;"></div>
         <a menu-close="" ui-sref="selfieChallenge" class="button button-royal button-block ">Selfie Challenge</a>
