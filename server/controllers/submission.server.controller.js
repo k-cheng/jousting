@@ -37,8 +37,24 @@ exports.getSubmissionInfo = function(req, res) {
 							// res.write(new Buffer(submission['submission'],"base64"));
 							// res.end();
 
-							res.set('Content-Type', 'image/jpeg');
-							res.send(new Buffer(submission['submission'],"base64"));
+							if (err) {
+		                        return res.sendStatus(500);
+		                    }
+		                    if (!submission) {
+		                    	var errMsg = 'Sorry, submission does not exist ' + err;
+                                console.log(errMsg);
+		                        return res.sendStatus(500);
+		                    } else {
+								if(challengeName === 'selfieChallenge') {
+									res.set('Content-Type', 'image/jpeg');
+									res.send(new Buffer(submission['submission'],"base64"));
+								}
+
+								if(challengeName === 'shakeChallenge') {
+									res.set('Content-Type', 'text/plain');
+									res.send(submission['submission']);
+								}
+							}
 
 						});
 				});

@@ -7,14 +7,36 @@ angular.module('app').controller('CreateTeamCtrl', function($scope, $http, $stat
 
     $scope.createTeam = function() {
       $http.post(API_URL + 'createTeam', {
-          email: email,
-          teamName: $scope.team.teamName
+        email: email,
+        teamName: $scope.team.teamName
       })
       .success(function() {
-        var storage = $window.localStorage;
-        storage.setItem('team', $scope.team.teamName);
-        console.log($scope.team.teamName + ' has entered the gauntlet!');
-        $state.go('app.roster');
+        $http.post(API_URL + 'createChallenge', {
+          points: 3,
+          teamName: $scope.team.teamName,
+          challengeName: 'selfieChallenge'
+        })
+        .success(function() {
+          $http.post(API_URL + 'createChallenge', {
+            points: 5,
+            teamName: $scope.team.teamName,
+            challengeName: 'shakeChallenge'
+          })
+          .success(function() {
+            var storage = $window.localStorage;
+            storage.setItem('team', $scope.team.teamName);
+            console.log($scope.team.teamName + ' has entered the gauntlet!');
+            $state.go('app.roster');
+          })
+          .error(function(err) {
+            $state.go('app.createTeam');
+            console.log('Shake Challenge already exists. '+err);
+          });
+        })
+        .error(function(err) {
+          $state.go('app.createTeam');
+          console.log('Selfie Challenge already exists. '+err);
+        });
       })
       .error(function(err) {
         $state.go('app.createTeam');
@@ -25,6 +47,3 @@ angular.module('app').controller('CreateTeamCtrl', function($scope, $http, $stat
   });
 
 });
-
- 
- 

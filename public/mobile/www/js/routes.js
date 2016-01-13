@@ -104,6 +104,15 @@ angular.module('app')
     }
   })
 
+  .state('app.challenges', {
+    url: '/challenges',
+    views: {
+      'app-nav': {
+        templateUrl: 'templates/challenges.html'
+      }
+    }
+  }) 
+
   .state('app.shakeChallenge', {
     url: '/shakechallenge',
     views: {

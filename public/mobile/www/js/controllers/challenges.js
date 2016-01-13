@@ -1,26 +1,24 @@
-angular.module('app').controller('ChallengesCtrl', function($scope, $http, API_URL) {
+angular.module('app').controller('ChallengesCtrl', function($scope, $http, API_URL, $window) {
 
-  var userName = JSON.parse(window.localStorage.userName);
-  console.log("in challenge control");
-  $scope.teamInfo = {
-    users: [],
-    teamName: ''
-  };
-  $scope.challenges = [];
-  var teamUserIsIn;
-  var usersInTeam;
+  $scope.$on('$ionicView.enter', function(){  
+    var email = $window.localStorage.email;
 
-  $http.post(API_URL +'getTeamName', {
-      userName: userName
+    $scope.teamInfo = {
+      users: [],
+      teamName: ''
+    };
+    $scope.challenges = [];
+
+    $http.post(API_URL + 'getTeamName', {
+      email: email
     })
     .success(function(teams) {
-      teamUserIsIn = teams["teams"];
-      console.log("teamarray " + JSON.stringify(teamUserIsIn[0]['teamName']));
-      $scope.teamInfo.teamName = teamUserIsIn[0]['teamName'];
-      console.log('This is the scope.teamInfo.teamName: ' + $scope.teamInfo.teamName)
+      var team = teams['teams'][0].teamName;
+      console.log('test', team);
+      $scope.teamInfo.teamName = team;
 
       $http.post(API_URL + 'listTeamChallenges', {
-          teamName: teamUserIsIn[0]["teamName"]
+          teamName: team
         })
         .success(function(challenges) {
           console.log(JSON.stringify(challenges));
@@ -37,5 +35,6 @@ angular.module('app').controller('ChallengesCtrl', function($scope, $http, API_U
     .error(function(err) {
       console.log('Could not retrive team info ' + err);
     });
+  });
 
 });

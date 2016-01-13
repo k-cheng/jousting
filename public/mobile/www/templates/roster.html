@@ -3,7 +3,6 @@
     <button class="button button-icon ion-navicon-round" menu-toggle="left"></button>
   </ion-nav-buttons>
   <ion-content ng-controller="RosterCtrl"  padding="'true'" class="has-header main-page">
-    <!--<div ng-controller="RosterCtrl" ng-model="teamInfo.teamName">-->
       <h3>Team: {{ teamInfo.teamName }}</h3>
       <ion-list>
         <h4>Challengers</h4>
@@ -17,9 +16,7 @@
         </ul>
       </ion-list>
       <div class="spacer" style="height: 90px;"></div>
-      <a menu-close="" ui-sref="app.selfieChallenge" class="button button-stable button-block ">Selfie Challenge</a>
-      <a menu-close="" ui-sref="app.shakeChallenge" class="button button-stable button-block ">Shake Challenge</a>
-      <a menu-close="" ng-controller="LeaveTeamCtrl" ng-click="leaveTeam()" class="button button-royal button-block ">Leave Team</a>
-    <!--</div>-->
+      <a menu-close="" ui-sref="app.challenges" class="button button-stable button-block ">Challenges</a>
+      <a menu-close="" ng-controller="LeaveTeamCtrl" ng-click="leaveTeam()" class="button button-stable button-block ">Leave Team</a>
   </ion-content>
 </ion-view>

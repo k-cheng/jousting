@@ -1,4 +1,4 @@
-angular.module('app').controller('SubmissionCtrl', function($scope, $state, $http, API_URL, $window) {
+angular.module('app').controller('SubmissionCtrl', function($scope, $state, $http, $timeout, API_URL, $window) {
     
   $scope.imgURL = [];
   var email = window.localStorage.email;
@@ -28,10 +28,27 @@ angular.module('app').controller('SubmissionCtrl', function($scope, $state, $htt
         $scope.teamInfo.users = usersInTeam;
         console.log(JSON.stringify($scope.teamInfo.users));
 
+        var imgURL = [];
+
         for(var i = 0 ; i < usersInTeam.length ; i++){
           console.log(usersInTeam[i]['userName']);
-          $scope.imgURL.push(API_URL + 'getSubmissionInfo/' + usersInTeam[i]['userName'] + '/selfieChallenge');
+          // $scope.imgURL.push(API_URL + 'getSubmissionInfo/' + usersInTeam[i]['userName'] + '/selfieChallenge');
+          imgURL.push(API_URL + 'getSubmissionInfo/' + usersInTeam[i]['userName'] + '/selfieChallenge');
         }
+
+        // for(var j = 0 ; j < imgURL.length ; j++){
+        // $scope.$apply(function(){
+          $scope.$evalAsync(function(){
+            for(var j = 0 ; j < imgURL.length ; j++){
+              // $scope.$apply(function(){
+                $scope.imgURL.push(imgURL[j]);
+                // $scope.imgURL;
+                console.log("wtf "+$scope.imgURL);
+              // });
+            }
+          });
+        // });
+        // }
 
       })
       .error(function(err) {
