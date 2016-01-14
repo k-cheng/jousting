@@ -25,6 +25,7 @@ angular.module('app').controller('RosterCtrl', function($scope, $http, API_URL, 
       })
       .success(function(users) {
         usersInTeam = users.users;
+        console.log("user information "+JSON.stringify(usersInTeam));
         $scope.teamInfo.users = usersInTeam;
       })
       .error(function(err) {

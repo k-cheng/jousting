@@ -10,7 +10,7 @@
           <li ng-repeat="users in teamInfo.users">
             <ion-item menu-close="" class="item-thumbnail-left challenger-listing">
               <img ng-src="{{ teamInfo.users[$index].picture }}">
-              <h2>{{ teamInfo.users[$index].fullName }}</h2>
+              <h2 style="float:left;">{{ teamInfo.users[$index].fullName }}</h2><h2 style="float:right;">points: {{ teamInfo.users[$index].points }}</h2>
             </ion-item>
           </li>
         </ul>

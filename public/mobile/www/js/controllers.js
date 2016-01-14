@@ -8,6 +8,47 @@ angular.module('app.controllers', ['ionic', 'ngCordova'])
 
 })
 
+.controller('TapController', function($scope, $http, $state, $ionicGesture, API_URL) {
+
+  var email = window.localStorage.email;
+
+  // var tapView = document.getElementById('tap-view')
+
+  $scope.countTaps = function() {
+    var tapCounter = 0;
+    $scope.tapCount = 0;
+
+    var stopTapCount = function() {
+
+      $http.post(API_URL + 'completeChallenge', {
+          email: email,
+          challengeName: 'tapChallenge',
+          comment: 'completed',
+          submission: tapCounter.toString(),
+          contentType: 'text/plain'
+        })
+        .success(function(){    
+          $state.go('app.submissions');   
+        })
+        .error(function(err) {
+          console.log('Already sumitted challenge. ' + err);
+        });
+    }
+    
+    $ionicGesture.on('tap', function(e) {
+      tapCounter++;
+      $scope.$apply(function() {
+        $scope.tapCount = tapCounter;
+      });
+      console.log("tap count " + tapCounter);
+    }, angular.element(document.getElementById('tap-view')));
+
+    setTimeout(stopTapCount, 10000);
+
+  }
+
+})
+
 .controller('ShakeController', function($scope, $http, $state, $cordovaDeviceMotion, API_URL) {
 
   var email = window.localStorage.email;

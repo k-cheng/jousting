@@ -23,10 +23,21 @@ angular.module('app').controller('CreateTeamCtrl', function($scope, $http, $stat
             challengeName: 'shakeChallenge'
           })
           .success(function() {
-            var storage = $window.localStorage;
-            storage.setItem('team', $scope.team.teamName);
-            console.log($scope.team.teamName + ' has entered the gauntlet!');
-            $state.go('app.roster');
+            $http.post(API_URL + 'createChallenge', {
+              points: 7,
+              teamName: $scope.team.teamName,
+              challengeName: 'tapChallenge'
+            })
+            .success(function() {
+              var storage = $window.localStorage;
+              storage.setItem('team', $scope.team.teamName);
+              console.log($scope.team.teamName + ' has entered the gauntlet!');
+              $state.go('app.roster');
+            })
+            .error(function(err) {
+              $state.go('app.createTeam');
+              console.log('Tap Challenge already exists. '+err);
+            });
           })
           .error(function(err) {
             $state.go('app.createTeam');
