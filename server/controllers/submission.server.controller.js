@@ -54,6 +54,11 @@ exports.getSubmissionInfo = function(req, res) {
 									res.set('Content-Type', 'text/plain');
 									res.send(submission['submission']);
 								}
+
+								if(challengeName === 'tapChallenge') {
+									res.set('Content-Type', 'text/plain');
+									res.send(submission['submission']);
+								}
 							}
 
 						});
