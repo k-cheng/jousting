@@ -1,44 +1,24 @@
 <ion-view title="Register an account">
-    <ion-content padding="'true'" scroll="false" class="has-header">
-    <div ng-app='app'>
-        <form class="form-auth" name="form" class="css-form" ng-submit="register()" novalidate>
-            <ion-list>
-                <label class="item item-input">
-                    <input type="text" ng-model="user.fullName" name="name" placeholder="Name"/>
-                </label>
-                <!--<label class="item item-input">
-                    <input type="text" ng-model="user.userName" name="userName"  placeholder="Username"/>
-                </label>-->
-
-
-                <label class="item item-input">
-                    <div>
-                        <input type="text" ng-model="user.userName" placeholder="Choose Username" name="name" />
-                    </div>
-                    <!--<span ng-show="form.name.$pending.username">Username available.</span>-->
-                </label>
-                <span ng-show="form.name.$error.username">Username taken!</span>
-
-
-
-                <label class="item item-input">
-                    <input type="email" ng-model="user.email" name="email" placeholder="Email"/>
-                </label>
-                <label class="item item-input">
-                    <input type="password" ng-model="user.password" name="password" placeholder="Password"/>
-                </label>
-            </ion-list>
-            
-            <input type="submit" menu-close="" class="button button-stable button-block " value="Submit Registration" />
-        </form>
-        <a menu-close="" href="#/login" class="button button-stable button-block ">Already have an account?</a>
-
-        <label class="item">
-            <button class="button button-block button-positive" ng-click="fbLogin()">
-            Login with Facebook
-            </button>
+  <ion-content ng-controller="RegisterCtrl" padding="'true'" scroll="false" class="has-header main-page">
+    <form class="form-auth" name="register" class="css-form" ng-submit="submit()" novalidate>
+      <ion-list>
+        <label class="item item-input">
+          <input type="text" ng-model="user.fullName" name="name" placeholder="Name" required/>
         </label>
-
-        </div>
-    </ion-content>
+        <label class="item item-input">
+            <div>
+                <input type="text" ng-model="user.userName" placeholder="Choose Username" name="name" />
+            </div>
+        </label>
+        <label class="item item-input">
+          <input type="email" ng-model="user.email" name="email" placeholder="Email" required/>
+        </label>
+        <label class="item item-input">
+          <input type="password" ng-model="user.password" name="password" placeholder="Password" required/>
+        </label>
+      </ion-list>
+      <input ng-disabled="register.$invalid" type="submit" menu-close="" class="button button-stable button-block " value="Submit Registration" />
+    </form>
+    <a menu-close="" ui-sref="app.login" class="button button-stable button-block ">Already have an account?</a>
+  </ion-content>
 </ion-view>

@@ -2,10 +2,8 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var submissionSchema = new Schema({
-    submission: {
-		type: String,
-		trim: true
-	},
+	submission: String,
+	contentType: String,
 	comment: {
 		type: String,
 		trim: true

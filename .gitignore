@@ -35,3 +35,6 @@ public/mobile/www/css
 
 #database
 db
+
+# Secrets
+server/services/config.js

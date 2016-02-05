@@ -1,168 +1,195 @@
-angular.module('app.routes', [])
+angular.module('app')
 
 .config(function($stateProvider, $urlRouterProvider, $httpProvider) {
-
-  // Authentication: Will be Modularized Later
-  //=========================================================================
-  var checkLoggedin = function ($q, $timeout, $http, $location, $rootScope) {
-      // Initialize a new promise
-      var deferred = $q.defer();
-
-      // Make an AJAX call to check if the user is logged in
-      $http.get('/loggedin').success(function(user){
-        // Authenticated
-        if (user !== '0')
-          /*$timeout(deferred.resolve, 0);*/
-          deferred.resolve();
-
-        // Not Authenticated
-        else {
-          $rootScope.message = 'You need to log in.';
-          //$timeout(function(){deferred.reject();}, 0);
-          deferred.reject();
-          $location.url('/login');
-        }
-      });
-
-      return deferred.promise;
-    };
-
-  $httpProvider.interceptors.push(function($q, $location) {
-      return {
-        response: function(response) {
-          // do something on success
-          return response;
-        },
-        responseError: function(response) {
-          if (response.status === 401)
-            $location.url('/login');
-          return $q.reject(response);
-        }
-      };
-    });
-  //======================================================================
-
+  
   $stateProvider
 
-  .state('register', {
+  .state('app', {
+    abstract: true,
+    templateUrl: 'templates/sidemenu.html',
+    controller: 'SideMenuCtrl',
+  })
+
+  .state('app.register', {
     url: '/register',
     views: {
       'app-nav': {
         templateUrl: 'templates/register.html',
-        controller: 'authCtrl'
+        controller: 'RegisterCtrl'
       }
     }
   })
 
-  .state('login', {
+  .state('app.login', {
     url: '/login',
     views: {
       'app-nav': {
-        templateUrl: 'templates/login.html',
-        controller: 'authCtrl'
+        templateUrl: 'templates/login.html'
       }
     }
   })
 
-  .state('createATeam', {
-    url: '/create-a-team',
-    resolve: {
-      loggedin: checkLoggedin
-    },
+  .state('app.logout', {
+    url: '/logout'
+  })
+
+  .state('app.createTeam', {
+    url: '/create-team',
     views: {
       'app-nav': {
-        templateUrl: 'templates/createATeam.html',
-        controller: 'createATeamCtrl'
+        templateUrl: 'templates/createteam.html',
+        controller: 'CreateTeamCtrl'
       }
     }
   })
 
-  .state('joinATeam', {
-    url: '/join-a-team',
-    resolve: {
-      loggedin: checkLoggedin
-    },
+  .state('app.joinTeam', {
+    url: '/join-team',
     views: {
       'app-nav': {
-        templateUrl: 'templates/joinATeam.html',
-        controller: 'joinATeamCtrl'
+        templateUrl: 'templates/jointeam.html',
+        controller: 'JoinTeamCtrl'
       }
     }
   })
 
-  .state('home', {
-    url: '/home',
+  .state('app.home', {
+    url: '/',
     views: {
       'app-nav': {
         templateUrl: 'templates/home.html',
-        controller: 'homeCtrl'
       }
+    },
+    resolve: {
+      redirectIfLoggedIntoHome: redirectIfLoggedIntoHome
     }
   })
 
-  .state('roster', {
+  .state('app.roster', {
     url: '/roster',
-    resolve: {
-      loggedin: checkLoggedin
-    },
     views: {
       'app-nav': {
         templateUrl: 'templates/roster.html',
-        controller: 'rosterCtrl'
+        controller: 'RosterCtrl'
       }
     }
   })
 
-  .state('gauntlet', {
+  .state('app.gauntlet', {
     url: '/gauntlet',
-    resolve: {
-      loggedin: checkLoggedin
-    },
     views: {
       'app-nav': {
         templateUrl: 'templates/gauntlet.html',
-        controller: 'gauntletCtrl'
+        controller: 'GauntletCtrl'
       }
     }
   })
 
-  .state('theTeam', {
+  .state('app.theTeam', {
     url: '/the-team',
-    resolve: {
-      loggedin: checkLoggedin
-    },
     views: {
       'app-nav': {
-        templateUrl: 'templates/theTeam.html',
+        templateUrl: 'templates/theteam.html',
         controller: 'theTeamCtrl'
       }
     }
   })
 
-   .state('challenges', {
-    url: '/challenges',
-    resolve: {
-      loggedin: checkLoggedin
-    },
+  .state('app.submissions', {
+    url: '/submissions',
     views: {
       'app-nav': {
-        templateUrl: 'templates/challenges.html',
-        controller: 'challenges'
+        templateUrl: 'templates/submissions.html'
       }
     }
   })
 
-  .state('selfieChallenge', {
-    url: '/selfieChallenge',
+  .state('app.challenges', {
+    url: '/challenges',
     views: {
       'app-nav': {
-        templateUrl: 'templates/selfieChallenge.html',
-        controller: 'ImageController'
+        templateUrl: 'templates/challenges.html'
+      }
+    }
+  }) 
+
+  .state('app.shakeChallenge', {
+    url: '/shakechallenge',
+    views: {
+      'app-nav': {
+        templateUrl: 'templates/shakechallenge.html'
+      }
+    }
+  }) 
+
+  .state('app.selfieChallenge', {
+    url: '/selfiechallenge',
+    views: {
+      'app-nav': {
+        templateUrl: 'templates/selfiechallenge.html'
       }
     }
   });
 
-  // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/home');
+  $urlRouterProvider.otherwise('/');  
 
-});
+  function skipIfLoggedIn($q, $auth) {
+    var deferred = $q.defer();
+    if ($auth.isAuthenticated()) {
+      deferred.reject();
+    } else {
+      deferred.resolve();
+    }
+    return deferred.promise;
+  }
+
+  function redirectIfLoggedIntoHome($q, $location, $auth) {
+    var deferred = $q.defer();
+    if (!$auth.isAuthenticated()) {
+      deferred.resolve();
+    } else {
+       $location.path('/gauntlet');
+    }
+    return deferred.promise;
+  }
+
+  function loginRequired($q, $location, $auth) {
+    var deferred = $q.defer();
+    if ($auth.isAuthenticated()) {
+      deferred.resolve();
+    } else {
+      $location.path('/login');
+    }
+    return deferred.promise;
+  }
+})
+.config(function($authProvider, API_URL) {
+  var commonConfig = {
+    popupOptions: {
+      location: 'no',
+      toolbar: 'no',
+      width: window.screen.width,
+      height: window.screen.height
+    }
+  };
+
+  if (ionic.Platform.isIOS() || ionic.Platform.isAndroid()) {
+    $authProvider.cordova = true;
+    commonConfig.redirectUri = API_URL;
+  }
+
+  $authProvider.loginUrl = API_URL + 'login';
+
+  $authProvider.signupUrl = API_URL + 'register';
+
+  $authProvider.facebook(angular.extend({}, commonConfig, {
+    clientId: '756912801119797',
+    url: API_URL + 'auth/facebook'
+  }));
+
+})
+.config(function($ionicConfigProvider) {
+  $ionicConfigProvider.views.maxCache(0);
+})
+
+.constant('API_URL', 'http://localhost:8000/');

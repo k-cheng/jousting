@@ -4,10 +4,10 @@ var Challenge = require('../models/challenge.server.model.js');
 
 exports.createTeam = function(req, res) {
     var teamName = req.body.teamName;
-    var userName = req.body.userName;
+    var email = req.body.email;
     var picture  = req.body.picture;
 
-    User.findOne({ userName: userName })
+    User.findOne({ email: email })
         .exec(function(err, user) {
             var team = new Team({
                 teamName:   teamName,
@@ -44,7 +44,7 @@ exports.listAllTeams = function(req, res) {
         .sort({ createdOn: 'desc'})
         .exec(function(err, teams){
             console.log("all teams "+JSON.stringify(teams));
-            res.send({ teams: teams })
+            res.send({ teams: teams });
         });
 };
 
@@ -55,10 +55,10 @@ exports.getTeamInfo = function(req, res) {
         .populate( 'users createdBy challenges' )
         .sort({ createdOn: 'desc'})
         .exec(function(err, team) {
-            console.log("team "+JSON.stringify(team));
-            console.log("team leader "+JSON.stringify(team.createdBy));
-            console.log("users "+JSON.stringify(team.users));
-            console.log("challenges "+JSON.stringify(team.challenges));
+            // console.log("team "+JSON.stringify(team));
+            // console.log("team leader "+JSON.stringify(team.createdBy));
+            // console.log("users "+JSON.stringify(team.users));
+            // console.log("challenges "+JSON.stringify(team.challenges));
             res.send({ team: team });
         });
 };
@@ -66,11 +66,11 @@ exports.getTeamInfo = function(req, res) {
 
 exports.removeUser = function(req, res) {
     var teamName = req.body.teamName;
-    var userName = req.body.userName;
+    var email = req.body.email;
     
     Team.findOne({ teamName: teamName })
         .exec(function(err, team) {
-            User.findOne({ userName: userName })
+            User.findOne({ email: email })
                 .exec(function(err, user) {
                     team.users.pull( user._id );
                     user.teams.pull( team._id );
@@ -105,7 +105,7 @@ exports.listUsers = function(req, res) {
         .populate( 'users' )
         .sort({ createdOn: 'desc' })
         .exec(function(err, team) {
-            console.log("team members "+JSON.stringify(team.users));
+            // console.log("team members "+JSON.stringify(team.users));
             res.send({ users: team.users });
         });
 };
