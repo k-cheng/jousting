@@ -42,17 +42,19 @@ exports.createChallenge = function(req, res) {
 };
 
 exports.completeChallenge = function(req, res) {
-	var userName 		= req.body.userName;
+    var email 		    = req.body.email;
 	var challengeName 	= req.body.challengeName;
     var comment         = req.body.comment;
-    var challengeSubmission = req.body.challengeSubmission;
+    var sub             = req.body.submission;
+    var contentType     = req.body.contentType;
 
-	User.findOne({ userName: userName })
+	User.findOne({ email: email })
 		.exec(function(err, user) {
 			Challenge.findOne({ challengeName: challengeName })
 				.exec(function(err, challenge){
                     var submission = new Submission({
-                        submission:     challengeSubmission,
+                        submission:     sub,
+                        contentType:    contentType,
                         comment:        comment,
                         user:           user._id,
                         challenge:      challenge._id,
@@ -61,7 +63,10 @@ exports.completeChallenge = function(req, res) {
 
 					user.completedChallenges.addToSet(challenge._id);
 					user.submissions.addToSet(submission._id);
-					user.points += challenge.points;
+					//check if someone completed
+					if(challenge.usersCompleted.length===0){
+						user.points += challenge.points;
+					}
 					challenge.usersCompleted.addToSet(user._id);
                     challenge.submissions.addToSet(submission._id);
 
@@ -94,6 +99,7 @@ exports.completeChallenge = function(req, res) {
 
 				});
 		});
+
 };
 
 exports.listTeamChallenges = function(req, res) {
@@ -127,7 +133,15 @@ exports.getChallengeInfo = function(req, res) {
 			console.log("points challenge is worth "+JSON.stringify(challenge.points));
 			console.log("team associated with challenge "+JSON.stringify(challenge.team));
 			console.log("users who completed challenge "+JSON.stringify(challenge.usersCompleted));
-			res.send({ challenge: challenge });
+			//res.send({ challenge: challenge });
+
+			Team.findOne({ teamName: challenge.team.teamName })
+				.populate( 'users' )
+				.exec(function(err, team) {
+					console.log("users "+JSON.stringify(team.users));
+					res.send({ users: team.users, challenge: challenge });
+				});
+
 		});
 };
 

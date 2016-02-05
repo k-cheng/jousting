@@ -10,14 +10,21 @@ exports.listChallengeSubmissions = function(req, res) {
 		.populate( 'submissions' )
 		.sort({ createdOn: 'desc' })
 		.exec(function(err, challenge) {
-			console.log("challenge submissions "+JSON.stringify(challenge.submissions));
-			res.send({ submissions: challenge.submissions });
+
+			var images = {}
+
+			for(var i = 0 ; i < challenge.submissions.length ; i++){
+				images[i.toString()] = challenge.submissions[i]['submission'];
+			}
+
+			res.send(images);
+
 		});
 };
 
 exports.getSubmissionInfo = function(req, res) {
-	challengeName = req.body.challengeName;
-	userName = req.body.userName;
+	challengeName = req.params.challengeName;
+	userName = req.params.userName;
 
 	Challenge.findOne({ challengeName: challengeName })
 		.exec(function(err, challenge) {
@@ -25,8 +32,30 @@ exports.getSubmissionInfo = function(req, res) {
 				.exec(function(err, user) {
 					Submission.findOne({ challenge: challenge._id, user: user._id })
 						.exec(function(err, submission) {
-							console.log("submission "+JSON.stringify(submission));
-							res.send({ submission: submission });
+
+							// res.writeHead(200, {'Content-Type': 'image/jpeg'});
+							// res.write(new Buffer(submission['submission'],"base64"));
+							// res.end();
+
+							if (err) {
+		                        return res.sendStatus(500);
+		                    }
+		                    if (!submission) {
+		                    	var errMsg = 'Sorry, submission does not exist ' + err;
+                                console.log(errMsg);
+		                        return res.sendStatus(500);
+		                    } else {
+								if(challengeName === 'selfieChallenge') {
+									res.set('Content-Type', 'image/jpeg');
+									res.send(new Buffer(submission['submission'],"base64"));
+								}
+
+								if(challengeName === 'shakeChallenge') {
+									res.set('Content-Type', 'text/plain');
+									res.send(submission['submission']);
+								}
+							}
+
 						});
 				});
 		});
