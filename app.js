@@ -43,7 +43,6 @@ app.post('/auth/facebook', facebookRouter);
 // Routes
 app.use('/', authRouter, teamRouter, rosterRouter, challengeRouter);
 
-// server.listen(8000);
 
 // io.on('connection', function (socket) {
 //     var challenge = {title: 'Selfie Challenge!'}
